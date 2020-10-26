@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using OnboardingSIGDB1.Data;
+using OnboardingSIGDB1.Data.Repositories;
+using OnboardingSIGDB1.Data.Repositories.Interfaces;
 
 namespace OnboardingSIGDB1.API
 {
@@ -23,6 +25,9 @@ namespace OnboardingSIGDB1.API
         {
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddScoped<IEmpresaRepository, EmpresaRepository>();
+            services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
+            services.AddScoped<ICargoRepository, CargoRepository>();
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1",
