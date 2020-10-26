@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnboardingSIGDB1.Data.Repositories;
-using OnboardingSIGDB1.Data.Repositories.Interfaces;
-using OnboardingSIGDB1.Domain.Entitys;
-using System.Collections.Generic;
+using OnboardingSIGDB1.Data;
 
 namespace OnboardingSIGDB1.API.Controllers
 {
@@ -10,17 +7,17 @@ namespace OnboardingSIGDB1.API.Controllers
     [ApiController]
     public class EmpresaController : ControllerBase
     {
-        private IEmpresaRepository _repo { get; }
+        private IUnitOfWork _unitOfWork { get; }
 
-        public EmpresaController(IEmpresaRepository empresaRepository)
+        public EmpresaController(IUnitOfWork unitOfWork)
         {
-            _repo = empresaRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public ActionResult GetAll()
         {
-            return Ok("Retornou com sucesso!");
+            return Ok(_unitOfWork.EmpresaRepository.GetAll());
         }
     }
 }
