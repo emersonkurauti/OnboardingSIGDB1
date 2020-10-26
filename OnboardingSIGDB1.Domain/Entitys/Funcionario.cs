@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OnboardingSIGDB1.Domain.Entitys
 {
@@ -11,5 +9,8 @@ namespace OnboardingSIGDB1.Domain.Entitys
         public string Cpf { get; set; }
         public DateTime DataContratacao { get; set; }
         public int CargoId { get; set; }
+        public virtual Cargo Cargo { get; set; }
+        public int EmpresaId { get; set; }
+        public virtual Empresa Empresa { get; set; }
     }
 }
