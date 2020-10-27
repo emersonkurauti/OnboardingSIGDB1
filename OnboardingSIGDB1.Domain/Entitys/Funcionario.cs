@@ -4,7 +4,7 @@ using System;
 
 namespace OnboardingSIGDB1.Domain.Entitys
 {
-    public class Funcionario : EntityValidator<int, Funcionario>
+    public class Funcionario : EntityValidator<Funcionario>
     {
         public int Id { get; set; }
         public string Nome { get; set; }

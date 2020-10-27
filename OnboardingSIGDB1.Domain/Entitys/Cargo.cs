@@ -6,7 +6,7 @@ using System.Text;
 
 namespace OnboardingSIGDB1.Domain.Entitys
 {
-    public class Cargo : EntityValidator<int, Cargo>
+    public class Cargo : EntityValidator<Cargo>
     {
         public int Id { get; set; }
         public string Descricao { get; set; }
