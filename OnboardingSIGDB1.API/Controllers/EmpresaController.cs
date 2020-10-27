@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
+using OnboardingSIGDB1.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -16,11 +17,13 @@ namespace OnboardingSIGDB1.API.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IGravarEmpresaService _gravarEmpresaService;
 
-        public EmpresaController(IUnitOfWork unitOfWork, IMapper mapper)
+        public EmpresaController(IUnitOfWork unitOfWork, IMapper mapper, IGravarEmpresaService gravarEmpresaService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _gravarEmpresaService = gravarEmpresaService;
         }
 
         /// <summary>
@@ -61,7 +64,13 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] EmpresaDTO dto)
         {
-            return Ok();
+            var inseriu = await _gravarEmpresaService.Adicionar(dto);
+
+            if (!inseriu)
+                return BadRequest(_gravarEmpresaService.notificationContext.Notifications);
+
+            dto.Id = _gravarEmpresaService.Id;
+            return Created($"/api/empresa/{dto.Id}", dto);
         }
 
         /// <summary>

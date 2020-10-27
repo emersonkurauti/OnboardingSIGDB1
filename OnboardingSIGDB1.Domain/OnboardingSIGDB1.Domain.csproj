@@ -6,10 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Attributes\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Notifications\" />
-    <Folder Include="Utils\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
