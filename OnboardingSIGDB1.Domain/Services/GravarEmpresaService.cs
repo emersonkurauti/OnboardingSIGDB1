@@ -36,7 +36,8 @@ namespace OnboardingSIGDB1.Domain.Services
             if (!ValidadorCPNJ.ValidaCNPJ(empresa.Cnpj))
                 notificationContext.AddNotification("ValidadorCNPJ", "CNPJ inválido");
 
-            //TO-DO APENAS CNPJ NÃO CADASTRADOS
+            if (_unitOfWork.EmpresaRepository.Get(e => e.Cnpj == empresa.Cnpj) != null)
+                notificationContext.AddNotification("EmpresaComMesmoCNPJ", "CNPJ já incluído na base.");
 
             if (notificationContext.HasNotifications)
                 return false;
