@@ -10,6 +10,7 @@ namespace OnboardingSIGDB1.Domain.Entitys
     {
         public int Id { get; set; }
         public string Descricao { get; set; }
+        public virtual IEnumerable<FuncionarioCargo> FuncionarioCargo { get; set; }
 
         public override bool Validar()
         {

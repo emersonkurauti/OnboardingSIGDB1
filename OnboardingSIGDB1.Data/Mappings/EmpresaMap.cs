@@ -18,6 +18,8 @@ namespace OnboardingSIGDB1.Data.Mappings
             builder.Property(e => e.Cnpj)
                 .IsRequired()
                 .HasMaxLength(14);
+            builder.Ignore(e => e.ValidationResult);
+            builder.Ignore(e => e.CascadeMode);
         }
     }
 }

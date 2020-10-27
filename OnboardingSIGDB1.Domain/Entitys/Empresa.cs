@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using OnboardingSIGDB1.Domain.Base;
 using System;
+using System.Collections.Generic;
 
 namespace OnboardingSIGDB1.Domain.Entitys
 {
@@ -10,6 +11,7 @@ namespace OnboardingSIGDB1.Domain.Entitys
         public string Nome { get; set; }
         public string Cnpj { get; set; }
         public DateTime? DataFundacao { get; set; }
+        public virtual IEnumerable<Funcionario> Funcionarios { get; set; }
 
         public override bool Validar()
         {

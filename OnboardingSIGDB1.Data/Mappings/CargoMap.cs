@@ -15,6 +15,8 @@ namespace OnboardingSIGDB1.Data.Mappings
             builder.Property(c => c.Descricao)
                 .IsRequired()
                 .HasMaxLength(250);
+            builder.Ignore(c => c.ValidationResult);
+            builder.Ignore(f => f.CascadeMode);
         }
     }
 }

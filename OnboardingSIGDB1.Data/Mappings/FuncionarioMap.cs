@@ -18,6 +18,11 @@ namespace OnboardingSIGDB1.Data.Mappings
             builder.Property(f => f.Cpf)
                 .IsRequired()
                 .HasMaxLength(11);
+            builder.HasOne(f => f.Empresa)
+                .WithMany(e => e.Funcionarios)
+                .HasForeignKey(f => f.EmpresaId);
+            builder.Ignore(f => f.ValidationResult);
+            builder.Ignore(f => f.CascadeMode);
         }
     }
 }
