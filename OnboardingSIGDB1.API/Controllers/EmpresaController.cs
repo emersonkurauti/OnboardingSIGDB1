@@ -31,7 +31,7 @@ namespace OnboardingSIGDB1.API.Controllers
         public IActionResult Get()
         {
             var empresas = _unitOfWork.EmpresaRepository.GetAll();
-            var empresasDto = _mapper.Map<IEnumerable<Empresa>>(empresas);
+            var empresasDto = _mapper.Map<IEnumerable<EmpresaDTO>>(empresas);
 
             return Ok(empresasDto);
         }
@@ -49,7 +49,7 @@ namespace OnboardingSIGDB1.API.Controllers
             if (empresa == null)
                 return NotFound("Empresa não encontrada.");
 
-            var empresaDto = _mapper.Map<Empresa>(empresa);
+            var empresaDto = _mapper.Map<EmpresaDTO>(empresa);
             return Ok(empresaDto);
         }
 
