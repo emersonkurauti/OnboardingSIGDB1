@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace OnboardingSIGDB1.Data
@@ -27,12 +28,12 @@ namespace OnboardingSIGDB1.Data
             _dbSet.Remove(entity);
         }
 
-        public T Get(System.Linq.Expressions.Expression<Func<T, bool>> funcFilter)
+        public T Get(Expression<Func<T, bool>> funcFilter)
         {
             return _dbSet.FirstOrDefault(funcFilter);
         }
 
-        public IEnumerable<T> GetAll(System.Linq.Expressions.Expression<Func<T, bool>> funcFilter = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> funcFilter = null)
         {
             if (funcFilter != null)
             {
