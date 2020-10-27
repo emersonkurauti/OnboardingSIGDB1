@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Attributes\" />
-    <Folder Include="Base\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Notifications\" />
     <Folder Include="Utils\" />
@@ -15,6 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.3" />
   </ItemGroup>
 
 </Project>
