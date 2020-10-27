@@ -28,12 +28,12 @@ namespace OnboardingSIGDB1.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IEnumerable<EmpresaDTO>> Get()
         {
             var empresas = _unitOfWork.EmpresaRepository.GetAll();
             var empresasDto = _mapper.Map<IEnumerable<EmpresaDTO>>(empresas);
 
-            return Ok(empresasDto);
+            return empresasDto;
         }
 
         /// <summary>
