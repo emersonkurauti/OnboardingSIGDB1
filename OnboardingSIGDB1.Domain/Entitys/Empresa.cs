@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace OnboardingSIGDB1.Domain.Entitys
 {
-    public class Empresa: EntityValidator<Empresa>
+    public class Empresa : EntityValidator<Empresa>
     {
         public int Id { get; set; }
         public string Nome { get; set; }

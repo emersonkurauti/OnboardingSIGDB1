@@ -1,16 +1,9 @@
-﻿using AutoMapper;
-using OnboardingSIGDB1.Data;
-using OnboardingSIGDB1.Domain.Dto;
+﻿using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OnboardingSIGDB1.Domain.Interfaces
+namespace OnboardingSIGDB1.Domain.Interfaces.Empresas
 {
-    public interface IGravarService
+    public interface IGravarEmpresaService
     {
         NotificationContext notificationContext { get; set; }
         int Id { get; set; }

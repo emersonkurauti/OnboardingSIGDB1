@@ -1,18 +1,18 @@
-﻿using AutoMapper;
-using OnboardingSIGDB1.Data;
-using OnboardingSIGDB1.Domain.Interfaces;
+﻿using OnboardingSIGDB1.Data;
+using OnboardingSIGDB1.Domain.Interfaces.Empresas;
 using OnboardingSIGDB1.Domain.Notifications;
+using OnboardingSIGDB1.Domain.Utils;
 
-namespace OnboardingSIGDB1.Domain.Services
+namespace OnboardingSIGDB1.Domain.Services.Empresas
 {
-    public class RemoverEmpresaService : IRemoverService
+    public class RemoverEmpresaService : IRemoverEmpresaService
     {
         public NotificationContext notificationContext { get; set; }
         public int Id { get; set; }
 
         private readonly IUnitOfWork _unitOfWork;
 
-        public RemoverEmpresaService(IMapper mapper, IUnitOfWork unitOfWork)
+        public RemoverEmpresaService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             notificationContext = new NotificationContext();
@@ -23,7 +23,7 @@ namespace OnboardingSIGDB1.Domain.Services
             var empresa = _unitOfWork.EmpresaRepository.Get(e => e.Id == id);
 
             if (empresa == null)
-                notificationContext.AddNotification("EmpresaNaoLocalizada", "Empresa não localizada para exclusão.");
+                notificationContext.AddNotification(Constantes.sChaveErroLocalizar, Constantes.sMensagemErroLocalizar);
 
             if (notificationContext.HasNotifications)
                 return false;
@@ -32,7 +32,7 @@ namespace OnboardingSIGDB1.Domain.Services
             var deletou = _unitOfWork.Commit();
 
             if (!deletou)
-                notificationContext.AddNotification("FalhaRemocaoEmpresa", "Falha ao remover a empresa.");
+                notificationContext.AddNotification(Constantes.sChaveErroRemover, Constantes.sMensagemErroRemover);
 
             return deletou;
         }

@@ -2,20 +2,16 @@
 using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
-using OnboardingSIGDB1.Domain.Interfaces;
+using OnboardingSIGDB1.Domain.Interfaces.Cargos;
 using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Utils;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace OnboardingSIGDB1.Domain.Services
+namespace OnboardingSIGDB1.Domain.Services.Cargos
 {
     public class GravarCargoService : IGravarCargoService
     {
         public NotificationContext notificationContext { get; set; }
         public int Id { get; set; }
-
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private Cargo _cargo;
@@ -29,7 +25,7 @@ namespace OnboardingSIGDB1.Domain.Services
 
         public bool Adicionar(CargoDTO dto)
         {
-            _cargo = _mapper.Map<Cargo>(dto);
+            _cargo = _mapper.Map<Entitys.Cargo>(dto);
 
             ValidarEntidade();
 
@@ -49,7 +45,7 @@ namespace OnboardingSIGDB1.Domain.Services
 
         public bool Alterar(int id, CargoDTO dto)
         {
-            _cargo = _mapper.Map<Cargo>(dto);
+            _cargo = _mapper.Map<Entitys.Cargo>(dto);
 
             ValidarEntidade();
             ValidarCargoExiste(id);

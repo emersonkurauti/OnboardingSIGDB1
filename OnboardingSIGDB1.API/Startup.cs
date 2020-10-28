@@ -7,8 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using OnboardingSIGDB1.Data;
-using OnboardingSIGDB1.Domain.Interfaces;
-using OnboardingSIGDB1.Domain.Services;
+using OnboardingSIGDB1.Domain.Interfaces.Empresas;
+using OnboardingSIGDB1.Domain.Interfaces.Cargos;
+using OnboardingSIGDB1.Domain.Services.Empresas;
+using OnboardingSIGDB1.Domain.Services.Cargos;
 using System;
 
 namespace OnboardingSIGDB1.API
@@ -28,9 +30,10 @@ namespace OnboardingSIGDB1.API
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IGravarService, GravarEmpresaService>();
-            services.AddScoped<IRemoverService, RemoverEmpresaService>();
+            services.AddScoped<IGravarEmpresaService, GravarEmpresaService>();
+            services.AddScoped<IRemoverEmpresaService, RemoverEmpresaService>();
             services.AddScoped<IGravarCargoService, GravarCargoService>();
+            services.AddScoped<IRemoverCargoService, RemoverCargoService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSwaggerGen(c => {

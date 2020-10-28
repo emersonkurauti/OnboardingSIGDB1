@@ -1,13 +1,11 @@
-﻿using OnboardingSIGDB1.Domain.Dto;
-using OnboardingSIGDB1.Domain.Notifications;
+﻿using OnboardingSIGDB1.Domain.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace OnboardingSIGDB1.Domain.Interfaces
+namespace OnboardingSIGDB1.Domain.Interfaces.Empresas
 {
-    public interface IRemoverService
+    public interface IRemoverEmpresaService
     {
         NotificationContext notificationContext { get; set; }
         int Id { get; set; }

@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnboardingSIGDB1.API.Filtros;
 using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Dto;
-using OnboardingSIGDB1.Domain.Entitys;
-using OnboardingSIGDB1.Domain.Interfaces;
+using OnboardingSIGDB1.Domain.Interfaces.Empresas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +19,11 @@ namespace OnboardingSIGDB1.API.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IGravarService _gravarEmpresaService;
-        private readonly IRemoverService _removerEmpresaService;
+        private readonly IGravarEmpresaService _gravarEmpresaService;
+        private readonly IRemoverEmpresaService _removerEmpresaService;
 
-        public EmpresaController(IUnitOfWork unitOfWork, IMapper mapper, IGravarService gravarEmpresaService,
-            IRemoverService removerEmpresaService)
+        public EmpresaController(IUnitOfWork unitOfWork, IMapper mapper, IGravarEmpresaService gravarEmpresaService,
+            IRemoverEmpresaService removerEmpresaService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;

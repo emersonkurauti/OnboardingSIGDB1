@@ -2,13 +2,13 @@
 using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
-using OnboardingSIGDB1.Domain.Interfaces;
+using OnboardingSIGDB1.Domain.Interfaces.Empresas;
 using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Utils;
 
-namespace OnboardingSIGDB1.Domain.Services
+namespace OnboardingSIGDB1.Domain.Services.Empresas
 {
-    public class GravarEmpresaService : IGravarService
+    public class GravarEmpresaService : IGravarEmpresaService
     {
         public NotificationContext notificationContext { get; set; }
         public int Id { get; set; }

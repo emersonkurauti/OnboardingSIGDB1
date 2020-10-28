@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Interfaces;
+using OnboardingSIGDB1.Domain.Interfaces.Cargos;
 
 namespace OnboardingSIGDB1.API.Controllers
 {
@@ -19,12 +20,15 @@ namespace OnboardingSIGDB1.API.Controllers
         private readonly IUnitOfWork _unitOjWork;
         private readonly IMapper _mapper;
         private readonly IGravarCargoService _gravarCargoService;
+        private readonly IRemoverCargoService _removerService;
 
-        public CargoController(IUnitOfWork unitOfWork, IMapper mapper, IGravarCargoService gravarCargoService)
+        public CargoController(IUnitOfWork unitOfWork, IMapper mapper, IGravarCargoService gravarCargoService,
+            IRemoverCargoService removerService)
         {
             _unitOjWork = unitOfWork;
             _mapper = mapper;
             _gravarCargoService = gravarCargoService;
+            _removerService = removerService;
         }
 
         /// <summary>
@@ -86,6 +90,20 @@ namespace OnboardingSIGDB1.API.Controllers
                 return BadRequest(_gravarCargoService.notificationContext.Notifications);
 
             return Created($"/api/cargo/{id}", dto);
+        }
+
+        /// <summary>
+        /// DELETE api/cargo/1
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!_removerService.Remover(id))
+                return BadRequest(_removerService.notificationContext.Notifications);
+
+            return NoContent();
         }
     }
 }

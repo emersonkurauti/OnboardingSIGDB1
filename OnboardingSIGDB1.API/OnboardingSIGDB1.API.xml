@@ -32,6 +32,13 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:OnboardingSIGDB1.API.Controllers.CargoController.Delete(System.Int32)">
+            <summary>
+            DELETE api/cargo/1
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:OnboardingSIGDB1.API.Controllers.EmpresaController.Get">
             <summary>
             GET api
