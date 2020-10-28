@@ -88,7 +88,7 @@ namespace OnboardingSIGDB1.API.Controllers
             if (!_gravarEmpresaService.Alterar(id, dto))
                 return BadRequest(_gravarEmpresaService.notificationContext.Notifications);
 
-            return NoContent();
+            return Created($"/api/empresa/{id}", dto);
         }
 
         /// <summary>
