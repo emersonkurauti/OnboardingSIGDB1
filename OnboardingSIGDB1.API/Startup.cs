@@ -28,8 +28,8 @@ namespace OnboardingSIGDB1.API
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IGravarEmpresaService, GravarEmpresaService>();
-            services.AddScoped<IRemoverEmpresaService, RemoverEmpresaService>();
+            services.AddScoped<IGravarService, GravarEmpresaService>();
+            services.AddScoped<IRemoverService, RemoverEmpresaService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSwaggerGen(c => {

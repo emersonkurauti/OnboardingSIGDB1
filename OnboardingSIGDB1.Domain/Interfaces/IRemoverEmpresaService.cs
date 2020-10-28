@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnboardingSIGDB1.Domain.Interfaces
 {
-    public interface IRemoverEmpresaService
+    public interface IRemoverService
     {
         NotificationContext notificationContext { get; set; }
         int Id { get; set; }

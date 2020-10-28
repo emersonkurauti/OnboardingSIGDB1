@@ -28,6 +28,11 @@ namespace OnboardingSIGDB1.Data
             _dbSet.Remove(entity);
         }
 
+        public bool Exist(Expression<Func<T, bool>> funcFilter)
+        {
+            return _dbSet.Any(funcFilter);
+        }
+
         public T Get(Expression<Func<T, bool>> funcFilter)
         {
             return _dbSet.FirstOrDefault(funcFilter);

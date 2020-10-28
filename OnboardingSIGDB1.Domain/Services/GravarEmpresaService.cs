@@ -12,12 +12,13 @@ using System.Threading.Tasks;
 
 namespace OnboardingSIGDB1.Domain.Services
 {
-    public class GravarEmpresaService : IGravarEmpresaService
+    public class GravarEmpresaService : IGravarService
     {
         public NotificationContext notificationContext { get; set; }
         public int Id { get; set; }
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private Empresa _empresa;
 
         public GravarEmpresaService(IMapper mapper, IUnitOfWork unitOfWork)
         {
@@ -28,29 +29,68 @@ namespace OnboardingSIGDB1.Domain.Services
 
         public bool Adicionar(EmpresaDTO dto)
         {
-            var empresa = _mapper.Map<Empresa>(dto);
+            _empresa = _mapper.Map<Empresa>(dto);
 
-            if (!empresa.Validar())
-                notificationContext.AddNotifications(empresa.ValidationResult);
-
-            if (!ValidadorCPNJ.ValidaCNPJ(empresa.Cnpj))
-                notificationContext.AddNotification("ValidadorCNPJ", "CNPJ inválido");
-
-            if (_unitOfWork.EmpresaRepository.Get(e => e.Cnpj == empresa.Cnpj) != null)
-                notificationContext.AddNotification("EmpresaComMesmoCNPJ", "CNPJ já incluído na base.");
+            ValidarExisteMesmoCNPJ(_empresa.Cnpj);
+            ValidarCNPJ(_empresa.Cnpj);
+            ValidarEntidade();
 
             if (notificationContext.HasNotifications)
                 return false;
 
-            _unitOfWork.EmpresaRepository.Add(empresa);
+            _unitOfWork.EmpresaRepository.Add(_empresa);
             var inseriu = _unitOfWork.Commit();
 
             if (!inseriu)
                 notificationContext.AddNotification("InserirEmpresa", "Não possível realizar a inclusão.");
 
-            Id = empresa.Id;
+            Id = _empresa.Id;
 
             return inseriu;
+        }
+
+        public bool Alterar(int id, EmpresaDTO dto)
+        {
+            _empresa = _mapper.Map<Empresa>(dto);
+
+            ValidarEmpresaExiste(id);
+            ValidarCNPJ(_empresa.Cnpj);
+            ValidarEntidade();
+
+            if (notificationContext.HasNotifications)
+                return false;
+
+            _unitOfWork.EmpresaRepository.Update(_empresa);
+            var alterou = _unitOfWork.Commit();
+
+            if (!alterou)
+                notificationContext.AddNotification("AlterarEmpresa", "Não possível realizar a alteração.");
+
+            return alterou;
+        }
+
+        public void ValidarEntidade()
+        {
+            if (!_empresa.Validar())
+                notificationContext.AddNotifications(_empresa.ValidationResult);
+        }
+
+        public void ValidarExisteMesmoCNPJ(string cnpj)
+        {
+            if (_unitOfWork.EmpresaRepository.Get(e => e.Cnpj == cnpj) != null)
+                notificationContext.AddNotification("EmpresaComMesmoCNPJ", "CNPJ já incluído na base.");
+        }
+
+        public void ValidarCNPJ(string cnpj)
+        {
+            if (!ValidadorCPNJ.ValidaCNPJ(cnpj))
+                notificationContext.AddNotification("ValidadorCNPJ", "CNPJ inválido");
+        }
+
+        public void ValidarEmpresaExiste(int id)
+        {
+            if (!_unitOfWork.EmpresaRepository.Exist(e => e.Id == id))
+                notificationContext.AddNotification("EmpresaNaoLocalizada", "Empresa não localizada para alteração.");
         }
     }
 }

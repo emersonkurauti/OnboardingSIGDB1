@@ -10,10 +10,16 @@ using System.Threading.Tasks;
 
 namespace OnboardingSIGDB1.Domain.Interfaces
 {
-    public interface IGravarEmpresaService
+    public interface IGravarService
     {
         NotificationContext notificationContext { get; set; }
         int Id { get; set; }
+
+        void ValidarEntidade();
+        void ValidarExisteMesmoCNPJ(string cnpj);
+        void ValidarEmpresaExiste(int id);
+        void ValidarCNPJ(string cnpj);
         bool Adicionar(EmpresaDTO dto);
+        bool Alterar(int id, EmpresaDTO dto);
     }
 }

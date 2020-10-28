@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace OnboardingSIGDB1.Domain.Services
 {
-    public class RemoverEmpresaService : IRemoverEmpresaService
+    public class RemoverEmpresaService : IRemoverService
     {
         public NotificationContext notificationContext { get; set; }
         public int Id { get; set; }
