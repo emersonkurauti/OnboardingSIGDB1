@@ -18,12 +18,15 @@ namespace OnboardingSIGDB1.API.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IGravarEmpresaService _gravarEmpresaService;
+        private readonly IRemoverEmpresaService _removerEmpresaService;
 
-        public EmpresaController(IUnitOfWork unitOfWork, IMapper mapper, IGravarEmpresaService gravarEmpresaService)
+        public EmpresaController(IUnitOfWork unitOfWork, IMapper mapper, IGravarEmpresaService gravarEmpresaService,
+            IRemoverEmpresaService removerEmpresaService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _gravarEmpresaService = gravarEmpresaService;
+            _removerEmpresaService = removerEmpresaService;
         }
 
         /// <summary>
@@ -64,7 +67,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] EmpresaDTO dto)
         {
-            var inseriu = await _gravarEmpresaService.Adicionar(dto);
+            var inseriu = _gravarEmpresaService.Adicionar(dto);
 
             if (!inseriu)
                 return BadRequest(_gravarEmpresaService.notificationContext.Notifications);
@@ -93,7 +96,12 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            return Ok();
+            var deletou = _removerEmpresaService.Remover(id);
+
+            if (!deletou)
+                return BadRequest(_removerEmpresaService.notificationContext.Notifications);
+
+            return NoContent();
         }
     }
 }

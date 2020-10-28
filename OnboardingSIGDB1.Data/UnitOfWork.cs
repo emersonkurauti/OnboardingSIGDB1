@@ -17,9 +17,9 @@ namespace OnboardingSIGDB1.Data
             _dataContext = dataContext;
         }
 
-        public void Commit()
+        public bool Commit()
         {
-            _dataContext.SaveChanges();
+            return _dataContext.SaveChanges() != 0;
         }
 
         public IRepository<Empresa> EmpresaRepository

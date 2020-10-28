@@ -29,6 +29,7 @@ namespace OnboardingSIGDB1.API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IGravarEmpresaService, GravarEmpresaService>();
+            services.AddScoped<IRemoverEmpresaService, RemoverEmpresaService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSwaggerGen(c => {

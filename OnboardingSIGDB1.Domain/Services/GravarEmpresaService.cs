@@ -26,7 +26,7 @@ namespace OnboardingSIGDB1.Domain.Services
             notificationContext = new NotificationContext();
         }
 
-        public async Task<bool> Adicionar(EmpresaDTO dto)
+        public bool Adicionar(EmpresaDTO dto)
         {
             var empresa = _mapper.Map<Empresa>(dto);
 
@@ -43,11 +43,14 @@ namespace OnboardingSIGDB1.Domain.Services
                 return false;
 
             _unitOfWork.EmpresaRepository.Add(empresa);
-            _unitOfWork.Commit();
+            var inseriu = _unitOfWork.Commit();
+
+            if (!inseriu)
+                notificationContext.AddNotification("InserirEmpresa", "Não possível realizar a inclusão.");
 
             Id = empresa.Id;
 
-            return true;
+            return inseriu;
         }
     }
 }

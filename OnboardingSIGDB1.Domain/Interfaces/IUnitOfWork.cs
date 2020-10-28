@@ -11,6 +11,6 @@ namespace OnboardingSIGDB1.Data
         IRepository<Funcionario> FuncionarioRepository { get; }
         IRepository<Cargo> CargoRepository { get; }
 
-        void Commit();
+        bool Commit();
     }
 }
