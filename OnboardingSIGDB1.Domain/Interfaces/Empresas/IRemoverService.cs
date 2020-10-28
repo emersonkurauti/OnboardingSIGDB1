@@ -5,10 +5,7 @@ using System.Text;
 
 namespace OnboardingSIGDB1.Domain.Interfaces.Empresas
 {
-    public interface IRemoverEmpresaService
+    public interface IRemoverEmpresaService : IRemoverService
     {
-        NotificationContext notificationContext { get; set; }
-        int Id { get; set; }
-        bool Remover(int id);
     }
 }

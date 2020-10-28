@@ -49,7 +49,7 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
         {
             _empresa = _mapper.Map<Empresa>(dto);
 
-            ValidarEmpresaExiste(id);
+            ValidarExiste(id);
             ValidarCNPJ(_empresa.Cnpj);
             ValidarEntidade();
 
@@ -83,7 +83,7 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
                 notificationContext.AddNotification("ValidadorCNPJ", "CNPJ inválido");
         }
 
-        public void ValidarEmpresaExiste(int id)
+        public void ValidarExiste(int id)
         {
             if (!_unitOfWork.EmpresaRepository.Exist(e => e.Id == id))
                 notificationContext.AddNotification(Constantes.sChaveErroLocalizar, Constantes.sMensagemErroLocalizar);

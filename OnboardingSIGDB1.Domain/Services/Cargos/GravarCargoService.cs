@@ -48,7 +48,7 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
             _cargo = _mapper.Map<Entitys.Cargo>(dto);
 
             ValidarEntidade();
-            ValidarCargoExiste(id);
+            ValidarExiste(id);
 
             if (notificationContext.HasNotifications)
                 return false;
@@ -68,7 +68,7 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
                 notificationContext.AddNotifications(_cargo.ValidationResult);
         }
 
-        public void ValidarCargoExiste(int id)
+        public void ValidarExiste(int id)
         {
             if (!_unitOfWork.CargoRepository.Exist(c => c.Id == id))
                 notificationContext.AddNotification(Constantes.sChaveErroLocalizar, Constantes.sMensagemErroLocalizar);

@@ -5,10 +5,7 @@ using System.Text;
 
 namespace OnboardingSIGDB1.Domain.Interfaces.Cargos
 {
-    public interface IRemoverCargoService
+    public interface IRemoverCargoService : IRemoverService
     {
-        NotificationContext notificationContext { get; set; }
-        int Id { get; set; }
-        bool Remover(int id);
     }
 }

@@ -12,6 +12,8 @@ using OnboardingSIGDB1.Domain.Interfaces.Cargos;
 using OnboardingSIGDB1.Domain.Services.Empresas;
 using OnboardingSIGDB1.Domain.Services.Cargos;
 using System;
+using OnboardingSIGDB1.Domain.Services.Funcionarios;
+using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 
 namespace OnboardingSIGDB1.API
 {
@@ -34,6 +36,8 @@ namespace OnboardingSIGDB1.API
             services.AddScoped<IRemoverEmpresaService, RemoverEmpresaService>();
             services.AddScoped<IGravarCargoService, GravarCargoService>();
             services.AddScoped<IRemoverCargoService, RemoverCargoService>();
+            services.AddScoped<IGravarFuncionarioService, GravarFuncionarioService>();
+            services.AddScoped<IRemoverFuncionarioService, RemoverFuncionarioService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSwaggerGen(c => {
