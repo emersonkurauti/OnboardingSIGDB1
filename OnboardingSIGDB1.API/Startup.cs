@@ -30,6 +30,7 @@ namespace OnboardingSIGDB1.API
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IGravarService, GravarEmpresaService>();
             services.AddScoped<IRemoverService, RemoverEmpresaService>();
+            services.AddScoped<IGravarCargoService, GravarCargoService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSwaggerGen(c => {
