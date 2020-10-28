@@ -1,12 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using OnboardingSIGDB1.API.Filtros;
 using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace OnboardingSIGDB1.API.Controllers
@@ -57,6 +60,30 @@ namespace OnboardingSIGDB1.API.Controllers
 
             var empresaDto = _mapper.Map<EmpresaDTO>(empresa);
             return Ok(empresaDto);
+        }
+
+        [HttpGet("pesquisar")]
+        public async Task<IEnumerable<EmpresaDTO>> Get([FromQuery] FiltrosEmpresa filtro)
+        {
+            var empresas = _unitOfWork.EmpresaRepository.GetAll();
+            var empresasDto = _mapper.Map<IEnumerable<EmpresaDTO>>(empresas);
+
+            if (filtro.Nome != null)
+            {
+                var regex = new Regex(filtro.Nome, RegexOptions.IgnoreCase);
+                empresasDto = empresasDto.Where(e => regex.IsMatch(e.Nome));
+            }
+
+            if (filtro.Cnpj != null)
+                empresasDto = empresasDto.Where(e => e.Cnpj == filtro.Cnpj);
+
+            if (filtro.dtInicio != null)
+                empresasDto = empresasDto.Where(e => e.DataFundacao >= filtro.dtInicio);
+
+            if (filtro.dfFim != null)
+                empresasDto = empresasDto.Where(e => e.DataFundacao <= filtro.dfFim);
+
+            return empresasDto;
         }
 
         /// <summary>
