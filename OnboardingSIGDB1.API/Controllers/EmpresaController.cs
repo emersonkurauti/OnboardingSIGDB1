@@ -62,6 +62,11 @@ namespace OnboardingSIGDB1.API.Controllers
             return Ok(empresaDto);
         }
 
+        /// <summary>
+        /// GET api/empresa/pesquisar
+        /// </summary>
+        /// <param name="filtro"></param>
+        /// <returns></returns>
         [HttpGet("pesquisar")]
         public async Task<IEnumerable<EmpresaDTO>> Get([FromQuery] FiltrosEmpresa filtro)
         {

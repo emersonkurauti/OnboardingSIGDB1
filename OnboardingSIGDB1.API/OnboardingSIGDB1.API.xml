@@ -17,6 +17,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:OnboardingSIGDB1.API.Controllers.EmpresaController.Get(OnboardingSIGDB1.API.Filtros.FiltrosEmpresa)">
+            <summary>
+            GET api/empresa/pesquisar
+            </summary>
+            <param name="filtro"></param>
+            <returns></returns>
+        </member>
         <member name="M:OnboardingSIGDB1.API.Controllers.EmpresaController.Post(OnboardingSIGDB1.Domain.Dto.EmpresaDTO)">
             <summary>
             POST api/empresa

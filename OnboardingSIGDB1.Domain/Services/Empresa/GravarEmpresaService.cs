@@ -5,10 +5,6 @@ using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Domain.Interfaces;
 using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Utils;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnboardingSIGDB1.Domain.Services
 {
@@ -42,7 +38,7 @@ namespace OnboardingSIGDB1.Domain.Services
             var inseriu = _unitOfWork.Commit();
 
             if (!inseriu)
-                notificationContext.AddNotification("InserirEmpresa", "Não possível realizar a inclusão.");
+                notificationContext.AddNotification(Constantes.sChaveErroInclusao, Constantes.sMensagemErroInclusao);
 
             Id = _empresa.Id;
 

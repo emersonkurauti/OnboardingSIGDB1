@@ -1,14 +1,7 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc.Filters;
 using OnboardingSIGDB1.Data;
-using OnboardingSIGDB1.Domain.Dto;
-using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Domain.Interfaces;
 using OnboardingSIGDB1.Domain.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnboardingSIGDB1.Domain.Services
 {
