@@ -4,6 +4,20 @@
         <name>OnboardingSIGDB1.API</name>
     </assembly>
     <members>
+        <member name="T:OnboardingSIGDB1.API.Controllers.CargoController">
+            <summary>
+            Controller
+            </summary>
+        </member>
+        <member name="M:OnboardingSIGDB1.API.Controllers.CargoController.#ctor(OnboardingSIGDB1.Data.IUnitOfWork,AutoMapper.IMapper,OnboardingSIGDB1.Domain.Interfaces.Cargos.IGravarCargoService,OnboardingSIGDB1.Domain.Interfaces.Cargos.IRemoverCargoService)">
+            <summary>
+            Contrutor
+            </summary>
+            <param name="unitOfWork"></param>
+            <param name="mapper"></param>
+            <param name="gravarCargoService"></param>
+            <param name="removerService"></param>
+        </member>
         <member name="M:OnboardingSIGDB1.API.Controllers.CargoController.Get">
             <summary>
             GET api/cargo
@@ -38,6 +52,20 @@
             </summary>
             <param name="id"></param>
             <returns></returns>
+        </member>
+        <member name="T:OnboardingSIGDB1.API.Controllers.EmpresaController">
+            <summary>
+            Controller
+            </summary>
+        </member>
+        <member name="M:OnboardingSIGDB1.API.Controllers.EmpresaController.#ctor(OnboardingSIGDB1.Data.IUnitOfWork,AutoMapper.IMapper,OnboardingSIGDB1.Domain.Interfaces.Empresas.IGravarEmpresaService,OnboardingSIGDB1.Domain.Interfaces.Empresas.IRemoverEmpresaService)">
+            <summary>
+            Construtor
+            </summary>
+            <param name="unitOfWork"></param>
+            <param name="mapper"></param>
+            <param name="gravarEmpresaService"></param>
+            <param name="removerEmpresaService"></param>
         </member>
         <member name="M:OnboardingSIGDB1.API.Controllers.EmpresaController.Get">
             <summary>
@@ -81,6 +109,20 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:OnboardingSIGDB1.API.Controllers.FuncionarioController">
+            <summary>
+            Controller
+            </summary>
+        </member>
+        <member name="M:OnboardingSIGDB1.API.Controllers.FuncionarioController.#ctor(OnboardingSIGDB1.Data.IUnitOfWork,AutoMapper.IMapper,OnboardingSIGDB1.Domain.Interfaces.Funcionarios.IGravarFuncionarioService,OnboardingSIGDB1.Domain.Interfaces.Funcionarios.IRemoverFuncionarioService)">
+            <summary>
+            Construtor
+            </summary>
+            <param name="unitOfWork"></param>
+            <param name="mapper"></param>
+            <param name="gravarFuncionarioService"></param>
+            <param name="removerService"></param>
+        </member>
         <member name="M:OnboardingSIGDB1.API.Controllers.FuncionarioController.Get">
             <summary>
             GET api/funcionario
@@ -115,6 +157,75 @@
             </summary>
             <param name="id"></param>
             <returns></returns>
+        </member>
+        <member name="T:OnboardingSIGDB1.API.Filtros.FiltrosEmpresa">
+            <summary>
+            Filtros para consulta da empresa
+            </summary>
+        </member>
+        <member name="P:OnboardingSIGDB1.API.Filtros.FiltrosEmpresa.Nome">
+            <summary>
+            Nome da empresa
+            </summary>
+        </member>
+        <member name="P:OnboardingSIGDB1.API.Filtros.FiltrosEmpresa.Cnpj">
+            <summary>
+            Cnpj da empresa
+            </summary>
+        </member>
+        <member name="P:OnboardingSIGDB1.API.Filtros.FiltrosEmpresa.dtInicio">
+            <summary>
+            Data de ínicio para filtro
+            </summary>
+        </member>
+        <member name="P:OnboardingSIGDB1.API.Filtros.FiltrosEmpresa.dfFim">
+            <summary>
+            Data de fim para o filtro
+            </summary>
+        </member>
+        <member name="T:OnboardingSIGDB1.API.Program">
+            <summary>
+            Program
+            </summary>
+        </member>
+        <member name="M:OnboardingSIGDB1.API.Program.Main(System.String[])">
+            <summary>
+            Main
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:OnboardingSIGDB1.API.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            CreateWebHostBuilder
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:OnboardingSIGDB1.API.Startup">
+            <summary>
+            Startup
+            </summary>
+        </member>
+        <member name="M:OnboardingSIGDB1.API.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Startup
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:OnboardingSIGDB1.API.Startup.Configuration">
+            <summary>
+            Configuration
+            </summary>
+        </member>
+        <member name="M:OnboardingSIGDB1.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container. 
+            </summary>
+        </member>
+        <member name="M:OnboardingSIGDB1.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
         </member>
     </members>
 </doc>

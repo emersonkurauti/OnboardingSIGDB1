@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace OnboardingSIGDB1.API.Controllers
 {
+    /// <summary>
+    /// Controller
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class EmpresaController : ControllerBase
@@ -22,6 +25,13 @@ namespace OnboardingSIGDB1.API.Controllers
         private readonly IGravarEmpresaService _gravarEmpresaService;
         private readonly IRemoverEmpresaService _removerEmpresaService;
 
+        /// <summary>
+        /// Construtor
+        /// </summary>
+        /// <param name="unitOfWork"></param>
+        /// <param name="mapper"></param>
+        /// <param name="gravarEmpresaService"></param>
+        /// <param name="removerEmpresaService"></param>
         public EmpresaController(IUnitOfWork unitOfWork, IMapper mapper, IGravarEmpresaService gravarEmpresaService,
             IRemoverEmpresaService removerEmpresaService)
         {
@@ -36,7 +46,7 @@ namespace OnboardingSIGDB1.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<EmpresaDTO>> Get()
+        public IEnumerable<EmpresaDTO> Get()
         {
             var empresas = _unitOfWork.EmpresaRepository.GetAll();
             var empresasDto = _mapper.Map<IEnumerable<EmpresaDTO>>(empresas);
@@ -67,7 +77,7 @@ namespace OnboardingSIGDB1.API.Controllers
         /// <param name="filtro"></param>
         /// <returns></returns>
         [HttpGet("pesquisar")]
-        public async Task<IEnumerable<EmpresaDTO>> Get([FromQuery] FiltrosEmpresa filtro)
+        public IEnumerable<EmpresaDTO> Get([FromQuery] FiltrosEmpresa filtro)
         {
             var empresas = _unitOfWork.EmpresaRepository.GetAll();
             var empresasDto = _mapper.Map<IEnumerable<EmpresaDTO>>(empresas);
@@ -96,7 +106,7 @@ namespace OnboardingSIGDB1.API.Controllers
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] EmpresaDTO dto)
+        public IActionResult Post([FromBody] EmpresaDTO dto)
         {
             var inseriu = _gravarEmpresaService.Adicionar(dto);
 
@@ -114,7 +124,7 @@ namespace OnboardingSIGDB1.API.Controllers
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] EmpresaDTO dto)
+        public IActionResult Put(int id, [FromBody] EmpresaDTO dto)
         {
             if (!_gravarEmpresaService.Alterar(id, dto))
                 return BadRequest(_gravarEmpresaService.notificationContext.Notifications);
@@ -128,7 +138,7 @@ namespace OnboardingSIGDB1.API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             if (!_removerEmpresaService.Remover(id))
                 return BadRequest(_removerEmpresaService.notificationContext.Notifications);

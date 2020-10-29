@@ -14,6 +14,9 @@ using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 
 namespace OnboardingSIGDB1.API.Controllers
 {
+    /// <summary>
+    /// Controller
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class FuncionarioController : ControllerBase
@@ -23,6 +26,13 @@ namespace OnboardingSIGDB1.API.Controllers
         private readonly IGravarFuncionarioService _gravarFuncionarioService;
         private readonly IRemoverFuncionarioService _removerService;
 
+        /// <summary>
+        /// Construtor
+        /// </summary>
+        /// <param name="unitOfWork"></param>
+        /// <param name="mapper"></param>
+        /// <param name="gravarFuncionarioService"></param>
+        /// <param name="removerService"></param>
         public FuncionarioController(IUnitOfWork unitOfWork, IMapper mapper, IGravarFuncionarioService gravarFuncionarioService,
             IRemoverFuncionarioService removerService)
         {
@@ -37,7 +47,7 @@ namespace OnboardingSIGDB1.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<FuncionarioDTO>> Get()
+        public IEnumerable<FuncionarioDTO> Get()
         {
             var funcionarios = _unitOfWork.FuncionarioRepository.GetAll();
             var funcionariosDto = _mapper.Map<IEnumerable<FuncionarioDTO>>(funcionarios);
@@ -86,7 +96,7 @@ namespace OnboardingSIGDB1.API.Controllers
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, FuncionarioDTO dto)
+        public IActionResult Put(int id, FuncionarioDTO dto)
         {
             if (!_gravarFuncionarioService.Alterar(id, dto))
                 return BadRequest(_gravarFuncionarioService.notificationContext.Notifications);
@@ -100,7 +110,7 @@ namespace OnboardingSIGDB1.API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             if (!_removerService.Remover(id))
                 return BadRequest(_removerService.notificationContext.Notifications);

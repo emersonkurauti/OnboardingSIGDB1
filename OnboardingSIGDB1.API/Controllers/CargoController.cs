@@ -13,6 +13,9 @@ using OnboardingSIGDB1.Domain.Interfaces.Cargos;
 
 namespace OnboardingSIGDB1.API.Controllers
 {
+    /// <summary>
+    /// Controller
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class CargoController : ControllerBase
@@ -22,6 +25,13 @@ namespace OnboardingSIGDB1.API.Controllers
         private readonly IGravarCargoService _gravarCargoService;
         private readonly IRemoverCargoService _removerService;
 
+        /// <summary>
+        /// Contrutor
+        /// </summary>
+        /// <param name="unitOfWork"></param>
+        /// <param name="mapper"></param>
+        /// <param name="gravarCargoService"></param>
+        /// <param name="removerService"></param>
         public CargoController(IUnitOfWork unitOfWork, IMapper mapper, IGravarCargoService gravarCargoService,
             IRemoverCargoService removerService)
         {
@@ -36,7 +46,7 @@ namespace OnboardingSIGDB1.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<CargoDTO>> Get()
+        public IEnumerable<CargoDTO> Get()
         {
             var cargos = _unitOfWork.CargoRepository.GetAll();
             var cargosDto = _mapper.Map<IEnumerable<CargoDTO>>(cargos);
@@ -66,7 +76,7 @@ namespace OnboardingSIGDB1.API.Controllers
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Post(CargoDTO dto)
+        public IActionResult Post(CargoDTO dto)
         {
             var inseriu = _gravarCargoService.Adicionar(dto);
 
@@ -84,7 +94,7 @@ namespace OnboardingSIGDB1.API.Controllers
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, CargoDTO dto)
+        public IActionResult Put(int id, CargoDTO dto)
         {
             if (!_gravarCargoService.Alterar(id, dto))
                 return BadRequest(_gravarCargoService.notificationContext.Notifications);
@@ -98,7 +108,7 @@ namespace OnboardingSIGDB1.API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             if (!_removerService.Remover(id))
                 return BadRequest(_removerService.notificationContext.Notifications);
