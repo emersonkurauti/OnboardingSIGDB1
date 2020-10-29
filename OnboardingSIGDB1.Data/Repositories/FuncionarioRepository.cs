@@ -15,8 +15,12 @@ namespace OnboardingSIGDB1.Data.Repositories
 
         public IList<FuncionarioConsultaDTO> GetAllFuncionarios()
         {
-            var result = _dbSet.ProjectTo<FuncionarioConsultaDTO>().ToList();
-            return result;
+            return _dbSet.ProjectTo<FuncionarioConsultaDTO>().ToList();
+        }
+
+        public FuncionarioConsultaDTO GetFuncionario(int id)
+        {
+            return _dbSet.ProjectTo<FuncionarioConsultaDTO>().Where(f => f.Id == id).FirstOrDefault();
         }
     }
 }

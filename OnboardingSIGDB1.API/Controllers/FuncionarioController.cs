@@ -56,13 +56,11 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var funcionario = _unitOfWork.FuncionarioRepository.Get(c => c.Id == id);
+            var funcionario = _unitOfWork.FuncionarioRepository.GetFuncionario(id);
             if (funcionario == null)
                 return BadRequest("Funcionário não encontrado.");
 
-            var funcionarioDto = _mapper.Map<FuncionarioDTO>(funcionario);
-
-            return Ok(funcionarioDto);
+            return Ok(funcionario);
         }
 
         /// <summary>
