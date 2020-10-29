@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Internal.Account.Manage;
 using Microsoft.AspNetCore.Mvc;
+using OnboardingSIGDB1.API.Filtros;
 using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Interfaces;
@@ -69,6 +71,35 @@ namespace OnboardingSIGDB1.API.Controllers
             var funcionarioDto = _mapper.Map<FuncionarioDTO>(funcionario);
 
             return Ok(funcionarioDto);
+        }
+
+        /// <summary>
+        /// GET api/funcionario/pesquisar
+        /// </summary>
+        /// <param name="filtro"></param>
+        /// <returns></returns>
+        [HttpGet("pesquisar")]
+        public IEnumerable<FuncionarioDTO> Get([FromQuery] FiltrosFuncionario filtro)
+        {
+            var funcionarios = _unitOfWork.FuncionarioRepository.GetAll();
+            var funcionariosDto = _mapper.Map<IEnumerable<FuncionarioDTO>>(funcionarios);
+
+            if (filtro.Nome != null)
+            {
+                var regex = new Regex(filtro.Nome, RegexOptions.IgnoreCase);
+                funcionariosDto = funcionariosDto.Where(f => regex.IsMatch(f.Nome));
+            }
+
+            if (filtro.Cpf != null)
+                funcionariosDto = funcionariosDto.Where(f => f.Cpf == filtro.Cpf);
+
+            if (filtro.dtInicio != null)
+                funcionariosDto = funcionariosDto.Where(f => f.DataContratacao >= filtro.dtInicio);
+
+            if (filtro.dfFim != null)
+                funcionariosDto = funcionariosDto.Where(f => f.DataContratacao <= filtro.dfFim);
+
+            return funcionariosDto;
         }
 
         /// <summary>

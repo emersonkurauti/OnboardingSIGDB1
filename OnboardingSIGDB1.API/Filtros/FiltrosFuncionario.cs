@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 namespace OnboardingSIGDB1.API.Filtros
 {
     /// <summary>
-    /// Filtros para consulta da empresa
+    /// Filtros para consulta da funcionário
     /// </summary>
-    public class FiltrosEmpresa : FiltrosBase
+    public class FiltrosFuncionario : FiltrosBase
     {
         /// <summary>
         /// Cnpj da empresa
         /// </summary>
-        public string Cnpj { get; set; }
+        public string Cpf { get; set; }
     }
 }

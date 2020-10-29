@@ -136,6 +136,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:OnboardingSIGDB1.API.Controllers.FuncionarioController.Get(OnboardingSIGDB1.API.Filtros.FiltrosFuncionario)">
+            <summary>
+            GET api/funcionario/pesquisar
+            </summary>
+            <param name="filtro"></param>
+            <returns></returns>
+        </member>
         <member name="M:OnboardingSIGDB1.API.Controllers.FuncionarioController.Post(OnboardingSIGDB1.Domain.Dto.FuncionarioDTO)">
             <summary>
             POST api/funcionario
@@ -158,14 +165,29 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:OnboardingSIGDB1.API.Filtros.FiltrosBase">
+            <summary>
+            Filtros Base
+            </summary>
+        </member>
+        <member name="P:OnboardingSIGDB1.API.Filtros.FiltrosBase.Nome">
+            <summary>
+            Nome da empresa
+            </summary>
+        </member>
+        <member name="P:OnboardingSIGDB1.API.Filtros.FiltrosBase.dtInicio">
+            <summary>
+            Data de ínicio para filtro
+            </summary>
+        </member>
+        <member name="P:OnboardingSIGDB1.API.Filtros.FiltrosBase.dfFim">
+            <summary>
+            Data de fim para o filtro
+            </summary>
+        </member>
         <member name="T:OnboardingSIGDB1.API.Filtros.FiltrosEmpresa">
             <summary>
             Filtros para consulta da empresa
-            </summary>
-        </member>
-        <member name="P:OnboardingSIGDB1.API.Filtros.FiltrosEmpresa.Nome">
-            <summary>
-            Nome da empresa
             </summary>
         </member>
         <member name="P:OnboardingSIGDB1.API.Filtros.FiltrosEmpresa.Cnpj">
@@ -173,14 +195,14 @@
             Cnpj da empresa
             </summary>
         </member>
-        <member name="P:OnboardingSIGDB1.API.Filtros.FiltrosEmpresa.dtInicio">
+        <member name="T:OnboardingSIGDB1.API.Filtros.FiltrosFuncionario">
             <summary>
-            Data de ínicio para filtro
+            Filtros para consulta da funcionário
             </summary>
         </member>
-        <member name="P:OnboardingSIGDB1.API.Filtros.FiltrosEmpresa.dfFim">
+        <member name="P:OnboardingSIGDB1.API.Filtros.FiltrosFuncionario.Cpf">
             <summary>
-            Data de fim para o filtro
+            Cnpj da empresa
             </summary>
         </member>
         <member name="T:OnboardingSIGDB1.API.Program">
