@@ -73,7 +73,7 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
 
         public void ValidarExisteMesmoCNPJ(string cnpj)
         {
-            if (_unitOfWork.EmpresaRepository.Get(e => e.Cnpj == cnpj) != null)
+            if (_unitOfWork.EmpresaRepository.Exist(e => e.Cnpj == cnpj))
                 notificationContext.AddNotification(Constantes.sChaveErroMesmoCNPJ, Constantes.sMensagemErroMesmoCNPJ);
         }
 

@@ -53,7 +53,6 @@ namespace OnboardingSIGDB1.API
             services.AddScoped<IGravarFuncionarioService, GravarFuncionarioService>();
             services.AddScoped<IRemoverFuncionarioService, RemoverFuncionarioService>();
             services.AddScoped<IGravarFuncionarioCargoService, GravarFuncionarioCargoService>();
-            services.AddScoped<IRemoverFuncionarioCargoService, RemoverFuncionarioCargoService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSwaggerGen(c => {

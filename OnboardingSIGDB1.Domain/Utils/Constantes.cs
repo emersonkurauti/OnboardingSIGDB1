@@ -26,5 +26,9 @@ namespace OnboardingSIGDB1.Domain.Utils
         public const string sMensagemErroEmpresaVinculada = "Funcionário já possui empresa vinculada.";
         public const string sChaveErroEmpresaNaoLocalizadaParaVincular = "ErroEmpresaNaoLocalizadaVinculo";
         public const string sMensagemErroEmpresaNaoLocalizadaParaVincular = "Empresa não localizada para vincular.";
+        public const string sChaveErroFuncionarioSemEmpresa = "ErroFuncionarioSemEmpresa";
+        public const string sMensagemErroFuncionarioSemEmpresa = "Funcionáio não está vinculado com uma empresa.";
+        public const string sChaveErrooFuncionarioCargo = "ErroFuncionarioCargo";
+        public const string sMensagemErrooFuncionarioCargo = "Funcionário já vinculado ao cargo.";
     }
 }

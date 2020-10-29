@@ -109,6 +109,19 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:OnboardingSIGDB1.API.Controllers.FuncionarioCargoController">
+            <summary>
+            Controller de funcionários/cargos
+            </summary>
+        </member>
+        <member name="M:OnboardingSIGDB1.API.Controllers.FuncionarioCargoController.#ctor(OnboardingSIGDB1.Data.IUnitOfWork,AutoMapper.IMapper,OnboardingSIGDB1.Domain.Interfaces.FuncionariosCargo.IGravarFuncionarioCargoService)">
+            <summary>
+            Construtor
+            </summary>
+            <param name="unitOfWork"></param>
+            <param name="mapper"></param>
+            <param name="gravarFuncionarioCargoService"></param>
+        </member>
         <member name="T:OnboardingSIGDB1.API.Controllers.FuncionarioController">
             <summary>
             Controller

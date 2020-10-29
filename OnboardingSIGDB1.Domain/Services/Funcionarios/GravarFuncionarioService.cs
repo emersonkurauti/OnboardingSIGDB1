@@ -108,7 +108,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 
         public void ValidarExisteMesmoCPF(string cpf)
         {
-            if (_unitOfWork.FuncionarioRepository.Get(f => f.Cpf== cpf) != null)
+            if (_unitOfWork.FuncionarioRepository.Exist(f => f.Cpf== cpf))
                 notificationContext.AddNotification(Constantes.sChaveErroMesmoCPF, Constantes.sMensagemErroMesmoCPF);
         }
 
