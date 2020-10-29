@@ -14,7 +14,8 @@ namespace OnboardingSIGDB1.Data.Mappings
             builder.HasKey(f => new { f.CargoId, f.FuncionarioId });
             builder.HasOne(f => f.Cargo)
                 .WithMany(c => c.FuncionarioCargo)
-                .HasForeignKey(f => f.CargoId);
+                .HasForeignKey(f => f.CargoId)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(f => f.Funcionario)
                 .WithMany(f => f.FuncionarioCargo)
                 .HasForeignKey(f => f.FuncionarioId);
