@@ -17,7 +17,7 @@ namespace OnboardingSIGDB1.API.Controllers
     [ApiController]
     public class CargoController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOjWork;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IGravarCargoService _gravarCargoService;
         private readonly IRemoverCargoService _removerService;
@@ -25,7 +25,7 @@ namespace OnboardingSIGDB1.API.Controllers
         public CargoController(IUnitOfWork unitOfWork, IMapper mapper, IGravarCargoService gravarCargoService,
             IRemoverCargoService removerService)
         {
-            _unitOjWork = unitOfWork;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
             _gravarCargoService = gravarCargoService;
             _removerService = removerService;
@@ -38,7 +38,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpGet]
         public async Task<IEnumerable<CargoDTO>> Get()
         {
-            var cargos = _unitOjWork.CargoRepository.GetAll();
+            var cargos = _unitOfWork.CargoRepository.GetAll();
             var cargosDto = _mapper.Map<IEnumerable<CargoDTO>>(cargos);
             return cargosDto;
         }
@@ -51,7 +51,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var cargo = _unitOjWork.CargoRepository.Get(c => c.Id == id);
+            var cargo = _unitOfWork.CargoRepository.Get(c => c.Id == id);
             if (cargo == null)
                 return BadRequest("Cargo não encontrado.");
 
