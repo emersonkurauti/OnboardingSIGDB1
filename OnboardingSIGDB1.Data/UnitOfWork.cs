@@ -11,6 +11,7 @@ namespace OnboardingSIGDB1.Data
         private Repository<Empresa> empresaRepository = null;
         private Repository<Funcionario> funcionarioRepository = null;
         private Repository<Cargo> cargoRepository = null;
+        private Repository<FuncionarioCargo> funcionarioCargoRepository = null;
 
         public UnitOfWork(DataContext dataContext)
         {
@@ -52,6 +53,17 @@ namespace OnboardingSIGDB1.Data
                     cargoRepository = new Repository<Cargo>(_dataContext);
 
                 return cargoRepository;
+            }
+        }
+
+        public IRepository<FuncionarioCargo> FuncionarioCargoRepository
+        {
+            get
+            {
+                if (funcionarioCargoRepository == null)
+                    funcionarioCargoRepository = new Repository<FuncionarioCargo>(_dataContext);
+
+                return funcionarioCargoRepository;
             }
         }
 

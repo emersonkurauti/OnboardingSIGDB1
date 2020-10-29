@@ -10,6 +10,7 @@ namespace OnboardingSIGDB1.Data
         IRepository<Empresa> EmpresaRepository { get; }
         IRepository<Funcionario> FuncionarioRepository { get; }
         IRepository<Cargo> CargoRepository { get; }
+        IRepository<FuncionarioCargo> FuncionarioCargoRepository { get; }
 
         bool Commit();
     }
