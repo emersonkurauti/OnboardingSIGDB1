@@ -20,7 +20,8 @@ namespace OnboardingSIGDB1.Data.Mappings
                 .HasMaxLength(11);
             builder.HasOne(f => f.Empresa)
                 .WithMany(e => e.Funcionarios)
-                .HasForeignKey(f => f.EmpresaId);
+                .HasForeignKey(f => f.EmpresaId)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.Ignore(f => f.ValidationResult);
             builder.Ignore(f => f.CascadeMode);
         }
