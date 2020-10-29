@@ -4,6 +4,7 @@ using OnboardingSIGDB1.Domain.Entitys;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace OnboardingSIGDB1.Domain.AutoMapper
 {
@@ -11,8 +12,10 @@ namespace OnboardingSIGDB1.Domain.AutoMapper
     {
         public FuncionarioProfile()
         {
-            CreateMap<Funcionario, FuncionarioDTO>();
-            CreateMap<FuncionarioDTO, Funcionario>();
+            CreateMap<Funcionario, FuncionarioDTO>()
+                .ForMember(f => f.Cpf, o => o.MapFrom(f => Convert.ToUInt64(f.Cpf).ToString(@"000\.000\.000\-00"))); ;
+            CreateMap<FuncionarioDTO, Funcionario>()
+                .ForMember(f => f.Cpf, o => o.MapFrom(f => Regex.Replace(f.Cpf, @"[-,.]", string.Empty))); ;
         }
     }
 }

@@ -81,5 +81,18 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:OnboardingSIGDB1.API.Controllers.FuncionarioController.Get">
+            <summary>
+            GET api/funcionario
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OnboardingSIGDB1.API.Controllers.FuncionarioController.Post(OnboardingSIGDB1.Domain.Dto.FuncionarioDTO)">
+            <summary>
+            POST api/funcionario
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

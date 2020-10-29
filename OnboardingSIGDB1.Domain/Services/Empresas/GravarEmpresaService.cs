@@ -74,13 +74,13 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
         public void ValidarExisteMesmoCNPJ(string cnpj)
         {
             if (_unitOfWork.EmpresaRepository.Get(e => e.Cnpj == cnpj) != null)
-                notificationContext.AddNotification("EmpresaComMesmoCNPJ", "CNPJ já incluído na base.");
+                notificationContext.AddNotification(Constantes.sChaveErroMesmoCNPJ, Constantes.sMensagemErroMesmoCNPJ);
         }
 
         public void ValidarCNPJ(string cnpj)
         {
             if (!ValidadorCPNJ.ValidaCNPJ(cnpj))
-                notificationContext.AddNotification("ValidadorCNPJ", "CNPJ inválido");
+                notificationContext.AddNotification(Constantes.sChaveErroCNPJInvalido, Constantes.sMensagemErroCNPJInvalido);
         }
 
         public void ValidarExiste(int id)
