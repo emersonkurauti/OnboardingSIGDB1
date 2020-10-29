@@ -1,5 +1,7 @@
 ﻿using OnboardingSIGDB1.Domain.Entitys;
+using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 using System;
+using OnboardingSIGDB1.Data.Repositories;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,7 +11,7 @@ namespace OnboardingSIGDB1.Data
     {
         private DataContext _dataContext = null;
         private Repository<Empresa> empresaRepository = null;
-        private Repository<Funcionario> funcionarioRepository = null;
+        private FuncionarioRepository funcionarioRepository = null;
         private Repository<Cargo> cargoRepository = null;
         private Repository<FuncionarioCargo> funcionarioCargoRepository = null;
 
@@ -34,12 +36,12 @@ namespace OnboardingSIGDB1.Data
             }
         }
 
-        public IRepository<Funcionario> FuncionarioRepository
+        public IFuncionarioRepository FuncionarioRepository
         {
             get
             {
                 if (funcionarioRepository == null)
-                    funcionarioRepository = new Repository<Funcionario>(_dataContext);
+                    funcionarioRepository = new FuncionarioRepository(_dataContext);
 
                 return funcionarioRepository;
             }

@@ -11,8 +11,7 @@ namespace OnboardingSIGDB1.Domain.AutoMapper
     {
         public CargoProfile()
         {
-            CreateMap<Cargo, CargoDTO>();
-            CreateMap<CargoDTO, Cargo>();
+            CreateMap<Cargo, CargoDTO>().ReverseMap();
         }
     }
 }

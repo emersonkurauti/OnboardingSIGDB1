@@ -16,6 +16,7 @@ using OnboardingSIGDB1.Domain.Services.Funcionarios;
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 using OnboardingSIGDB1.Domain.Interfaces.FuncionariosCargo;
 using OnboardingSIGDB1.Domain.Services.FuncionariosCargo;
+using OnboardingSIGDB1.Domain.AutoMapper;
 
 namespace OnboardingSIGDB1.API
 {
@@ -43,8 +44,12 @@ namespace OnboardingSIGDB1.API
         /// </summary>
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigureAutoMapper.Initialize();
+
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IGravarEmpresaService, GravarEmpresaService>();
             services.AddScoped<IRemoverEmpresaService, RemoverEmpresaService>();
@@ -53,7 +58,6 @@ namespace OnboardingSIGDB1.API
             services.AddScoped<IGravarFuncionarioService, GravarFuncionarioService>();
             services.AddScoped<IRemoverFuncionarioService, RemoverFuncionarioService>();
             services.AddScoped<IGravarFuncionarioCargoService, GravarFuncionarioCargoService>();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1",

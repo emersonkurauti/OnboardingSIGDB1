@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\OnboardingSIGDB1.Domain\OnboardingSIGDB1.Domain.csproj" />
   </ItemGroup>
 

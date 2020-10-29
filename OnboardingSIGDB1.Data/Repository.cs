@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
+using OnboardingSIGDB1.Domain.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace OnboardingSIGDB1.Data
     public class Repository<T> : IRepository<T> where T : class
     {
         private DataContext _dataContext = null;
-        DbSet<T> _dbSet;
+        protected DbSet<T> _dbSet;
 
         public Repository(DataContext dataContext)
         {

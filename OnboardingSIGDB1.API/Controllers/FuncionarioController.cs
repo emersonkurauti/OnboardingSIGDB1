@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.UI.V3.Pages.Internal.Account.Manage;
 using Microsoft.AspNetCore.Mvc;
 using OnboardingSIGDB1.API.Filtros;
 using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Dto;
-using OnboardingSIGDB1.Domain.Interfaces;
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 
 namespace OnboardingSIGDB1.API.Controllers
@@ -49,11 +43,9 @@ namespace OnboardingSIGDB1.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IEnumerable<FuncionarioDTO> Get()
+        public IList<FuncionarioConsultaDTO> Get()
         {
-            var funcionarios = _unitOfWork.FuncionarioRepository.GetAll();
-            var funcionariosDto = _mapper.Map<IEnumerable<FuncionarioDTO>>(funcionarios);
-            return funcionariosDto;
+            return _unitOfWork.FuncionarioRepository.GetAllFuncionarios();
         }
 
         /// <summary>
