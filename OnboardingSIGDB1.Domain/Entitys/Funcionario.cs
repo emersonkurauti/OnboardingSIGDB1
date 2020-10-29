@@ -12,7 +12,7 @@ namespace OnboardingSIGDB1.Domain.Entitys
         public string Nome { get; set; }
         public string Cpf { get; set; }
         public DateTime? DataContratacao { get; set; }
-        public int EmpresaId { get; set; }
+        public int? EmpresaId { get; set; }
         public virtual Empresa Empresa { get; set; }
         public virtual IEnumerable<FuncionarioCargo> FuncionarioCargo { get; set; }
 
