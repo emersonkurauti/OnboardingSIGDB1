@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Identity.UI.V3.Pages.Internal.Account.Manage;
 using Microsoft.AspNetCore.Mvc;
 using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Dto;
+using OnboardingSIGDB1.Domain.Interfaces;
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 
 namespace OnboardingSIGDB1.API.Controllers
@@ -19,12 +21,15 @@ namespace OnboardingSIGDB1.API.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IGravarFuncionarioService _gravarFuncionarioService;
+        private readonly IRemoverFuncionarioService _removerService;
 
-        public FuncionarioController(IUnitOfWork unitOfWork, IMapper mapper, IGravarFuncionarioService gravarFuncionarioService)
+        public FuncionarioController(IUnitOfWork unitOfWork, IMapper mapper, IGravarFuncionarioService gravarFuncionarioService,
+            IRemoverFuncionarioService removerService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _gravarFuncionarioService = gravarFuncionarioService;
+            _removerService = removerService;
         }
 
         /// <summary>
@@ -87,6 +92,20 @@ namespace OnboardingSIGDB1.API.Controllers
                 return BadRequest(_gravarFuncionarioService.notificationContext.Notifications);
 
             return Created($"/api/funcionario/{id}", dto);
+        }
+
+        /// <summary>
+        /// DELETE api/funcionario/1
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!_removerService.Remover(id))
+                return BadRequest(_removerService.notificationContext.Notifications);
+
+            return NoContent();
         }
     }
 }

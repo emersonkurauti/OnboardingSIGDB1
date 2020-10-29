@@ -109,5 +109,12 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:OnboardingSIGDB1.API.Controllers.FuncionarioController.Delete(System.Int32)">
+            <summary>
+            DELETE api/funcionario/1
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
