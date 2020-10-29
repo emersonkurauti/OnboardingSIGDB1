@@ -4,6 +4,7 @@ using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 using OnboardingSIGDB1.Domain.Notifications;
+using OnboardingSIGDB1.Domain.Services.Empresas;
 using OnboardingSIGDB1.Domain.Utils;
 using System;
 using System.Collections.Generic;
@@ -68,6 +69,25 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             return alterou;
         }
 
+        public bool VincularEmpresa(int id, FuncionarioEmpresaDTO dto)
+        {
+            ValidarExiste(id);
+            ValidarEmpresaVinculada(id);
+            ValidarEmpresaExiste(dto.EmpresaId);
+
+            if (notificationContext.HasNotifications)
+                return false;
+
+            _funcionario.EmpresaId = dto.EmpresaId;
+            _unitOfWork.FuncionarioRepository.Update(_funcionario);
+            var alterou = _unitOfWork.Commit();
+
+            if (!alterou)
+                notificationContext.AddNotification(Constantes.sChaveErroAlteracao, Constantes.sMensagemErroAlteracao);
+
+            return alterou;
+        }
+
         public void ValidarCPF(string cpf)
         {
             if (!ValidadorCPF.ValidaCPF(cpf))
@@ -88,8 +108,22 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 
         public void ValidarExisteMesmoCPF(string cpf)
         {
-            if (_unitOfWork.FuncionarioRepository.Get(e => e.Cpf== cpf) != null)
+            if (_unitOfWork.FuncionarioRepository.Get(f => f.Cpf== cpf) != null)
                 notificationContext.AddNotification(Constantes.sChaveErroMesmoCPF, Constantes.sMensagemErroMesmoCPF);
+        }
+
+        public void ValidarEmpresaVinculada(int id)
+        {
+            _funcionario = _unitOfWork.FuncionarioRepository.Get(f => f.Id == id);
+
+            if (_funcionario != null && _funcionario.EmpresaId.HasValue)
+                notificationContext.AddNotification(Constantes.sChaveErroEmpresaVinculada, Constantes.sMensagemErroEmpresaVinculada);
+        }
+
+        public void ValidarEmpresaExiste(int id)
+        {
+            if (!_unitOfWork.EmpresaRepository.Exist(e => e.Id == id))
+                notificationContext.AddNotification(Constantes.sChaveErroEmpresaNaoLocalizadaParaVincular, Constantes.sMensagemErroEmpresaNaoLocalizadaParaVincular);
         }
     }
 }

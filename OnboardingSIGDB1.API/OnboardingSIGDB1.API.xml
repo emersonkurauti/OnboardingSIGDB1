@@ -158,6 +158,14 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:OnboardingSIGDB1.API.Controllers.FuncionarioController.VincularFuncionarioEmpresa(System.Int32,OnboardingSIGDB1.Domain.Dto.FuncionarioEmpresaDTO)">
+            <summary>
+            PUT api/funcionario/1
+            </summary>
+            <param name="id"></param>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
         <member name="M:OnboardingSIGDB1.API.Controllers.FuncionarioController.Delete(System.Int32)">
             <summary>
             DELETE api/funcionario/1

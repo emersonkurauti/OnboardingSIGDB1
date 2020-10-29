@@ -136,6 +136,21 @@ namespace OnboardingSIGDB1.API.Controllers
         }
 
         /// <summary>
+        /// PUT api/funcionario/1
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPatch("{id}")]
+        public IActionResult VincularFuncionarioEmpresa(int id, [FromBody] FuncionarioEmpresaDTO dto)
+        {
+            if (!_gravarFuncionarioService.VincularEmpresa(id, dto))
+                return BadRequest(_gravarFuncionarioService.notificationContext.Notifications);
+
+            return Created($"/api/funcionario/{id}", dto);
+        }
+
+        /// <summary>
         /// DELETE api/funcionario/1
         /// </summary>
         /// <param name="id"></param>

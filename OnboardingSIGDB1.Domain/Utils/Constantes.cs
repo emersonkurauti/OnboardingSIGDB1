@@ -22,5 +22,9 @@ namespace OnboardingSIGDB1.Domain.Utils
         public const string sMensagemErroCPFInvalido = "CPF inválido.";
         public const string sChaveErroCNPJInvalido = "ErroCNPJInvalido";
         public const string sMensagemErroCNPJInvalido = "CNPJ inválido.";
+        public const string sChaveErroEmpresaVinculada = "ErroEmpresaVinculada";
+        public const string sMensagemErroEmpresaVinculada = "Funcionário já possui empresa vinculada.";
+        public const string sChaveErroEmpresaNaoLocalizadaParaVincular = "ErroEmpresaNaoLocalizadaVinculo";
+        public const string sMensagemErroEmpresaNaoLocalizadaParaVincular = "Empresa não localizada para vincular.";
     }
 }
