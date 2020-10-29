@@ -11,6 +11,6 @@ namespace OnboardingSIGDB1.Domain.Interfaces.Funcionarios
         void ValidarExisteMesmoCPF(string cpf);
         void ValidarCPF(string cpf);
         bool Adicionar(FuncionarioDTO dto);
-        bool Alterar(int id, FuncionarioDTO dto);
+        bool Alterar(int id, FuncionarioAlteracaoDTO dto);
     }
 }
