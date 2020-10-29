@@ -122,6 +122,13 @@
             <param name="mapper"></param>
             <param name="gravarFuncionarioCargoService"></param>
         </member>
+        <member name="M:OnboardingSIGDB1.API.Controllers.FuncionarioCargoController.Post(OnboardingSIGDB1.Domain.Dto.FuncionarioCargoDTO)">
+            <summary>
+            POST api/funcionariocargo
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
         <member name="T:OnboardingSIGDB1.API.Controllers.FuncionarioController">
             <summary>
             Controller

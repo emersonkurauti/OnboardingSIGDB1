@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Dto;
@@ -35,6 +30,11 @@ namespace OnboardingSIGDB1.API.Controllers
             _gravarFuncionarioCargoService = gravarFuncionarioCargoService;
         }
 
+        /// <summary>
+        /// POST api/funcionariocargo
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Post(FuncionarioCargoDTO dto)
         {
