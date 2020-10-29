@@ -50,7 +50,22 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 
         public bool Alterar(int id, FuncionarioDTO dto)
         {
-            throw new NotImplementedException();
+            _funcionario = _mapper.Map<Funcionario>(dto);
+
+            ValidarExiste(id);
+            ValidarCPF(_funcionario.Cpf);
+            ValidarEntidade();
+
+            if (notificationContext.HasNotifications)
+                return false;
+
+            _unitOfWork.FuncionarioRepository.Update(_funcionario);
+            var alterou = _unitOfWork.Commit();
+
+            if (!alterou)
+                notificationContext.AddNotification(Constantes.sChaveErroAlteracao, Constantes.sMensagemErroAlteracao);
+
+            return alterou;
         }
 
         public void ValidarCPF(string cpf)
@@ -67,7 +82,8 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 
         public void ValidarExiste(int id)
         {
-            throw new NotImplementedException();
+            if (!_unitOfWork.FuncionarioRepository.Exist(f => f.Id == id))
+                notificationContext.AddNotification(Constantes.sChaveErroLocalizar, Constantes.sMensagemErroLocalizar);
         }
 
         public void ValidarExisteMesmoCPF(string cpf)

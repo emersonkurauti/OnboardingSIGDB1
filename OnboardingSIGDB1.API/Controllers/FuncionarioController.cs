@@ -40,6 +40,23 @@ namespace OnboardingSIGDB1.API.Controllers
         }
 
         /// <summary>
+        /// GET api/funcionario/1
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var funcionario = _unitOfWork.FuncionarioRepository.Get(c => c.Id == id);
+            if (funcionario == null)
+                return BadRequest("Funcionário não encontrado.");
+
+            var funcionarioDto = _mapper.Map<FuncionarioDTO>(funcionario);
+
+            return Ok(funcionarioDto);
+        }
+
+        /// <summary>
         /// POST api/funcionario
         /// </summary>
         /// <param name="dto"></param>
@@ -54,6 +71,22 @@ namespace OnboardingSIGDB1.API.Controllers
 
             dto.Id = _gravarFuncionarioService.Id;
             return Created($"/api/funcionario/{dto.Id}", dto);
+        }
+
+
+        /// <summary>
+        /// PUT api/funcionario/1
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, FuncionarioDTO dto)
+        {
+            if (!_gravarFuncionarioService.Alterar(id, dto))
+                return BadRequest(_gravarFuncionarioService.notificationContext.Notifications);
+
+            return Created($"/api/funcionario/{id}", dto);
         }
     }
 }
