@@ -4,6 +4,7 @@ using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace OnboardingSIGDB1.Domain.Services.Cargos
@@ -27,6 +28,9 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
 
             if (cargo == null)
                 notificationContext.AddNotification(Constantes.sChaveErroLocalizar, Constantes.sMensagemErroLocalizar);
+
+            if (_unitOfWork.FuncionarioCargoRepository.Get(fc => fc.CargoId == id).Any())
+                notificationContext.AddNotification(Constantes.sChaveErroCargoFuncionario, Constantes.sMensagemErroCargoFuncionario);
 
             if (notificationContext.HasNotifications)
                 return false;

@@ -30,5 +30,7 @@ namespace OnboardingSIGDB1.Domain.Utils
         public const string sMensagemErroFuncionarioSemEmpresa = "Funcionáio não está vinculado com uma empresa.";
         public const string sChaveErrooFuncionarioCargo = "ErroFuncionarioCargo";
         public const string sMensagemErrooFuncionarioCargo = "Funcionário já vinculado ao cargo.";
+        public const string sChaveErroCargoFuncionario = "ErroCargoVinculoFuncionario";
+        public const string sMensagemErroCargoFuncionario = "Cargo possui fuincionários vinculados.";
     }
 }
