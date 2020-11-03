@@ -29,7 +29,7 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
             if (cargo == null)
                 notificationContext.AddNotification(Constantes.sChaveErroLocalizar, Constantes.sMensagemErroLocalizar);
 
-            if (_unitOfWork.FuncionarioCargoRepository.Get(fc => fc.CargoId == id).Any())
+            if (_unitOfWork.FuncionarioCargoRepository.GetAll(fc => fc.CargoId == id).Any())
                 notificationContext.AddNotification(Constantes.sChaveErroCargoFuncionario, Constantes.sMensagemErroCargoFuncionario);
 
             if (notificationContext.HasNotifications)
