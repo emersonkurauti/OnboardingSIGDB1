@@ -13,7 +13,7 @@ namespace OnboardingSIGDB1.Domain.Interfaces.Funcionarios
         void ValidarEmpresaVinculada(int id);
         void ValidarEmpresaExiste(int id);
         bool Adicionar(FuncionarioDTO dto);
-        bool Alterar(int id, FuncionarioAlteracaoDTO dto);
+        bool Alterar(int id, FuncionarioDTO dto);
         bool VincularEmpresa(int id, FuncionarioEmpresaDTO dto);
     }
 }

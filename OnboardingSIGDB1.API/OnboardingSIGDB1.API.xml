@@ -170,7 +170,7 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
-        <member name="M:OnboardingSIGDB1.API.Controllers.FuncionarioController.Put(System.Int32,OnboardingSIGDB1.Domain.Dto.FuncionarioAlteracaoDTO)">
+        <member name="M:OnboardingSIGDB1.API.Controllers.FuncionarioController.Put(System.Int32,OnboardingSIGDB1.Domain.Dto.FuncionarioDTO)">
             <summary>
             PUT api/funcionario/1
             </summary>

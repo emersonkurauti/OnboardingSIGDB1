@@ -117,7 +117,7 @@ namespace OnboardingSIGDB1.API.Controllers
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public IActionResult Put(int id, FuncionarioAlteracaoDTO dto)
+        public IActionResult Put(int id, FuncionarioDTO dto)
         {
             if (!_gravarFuncionarioService.Alterar(id, dto))
                 return BadRequest(_gravarFuncionarioService.notificationContext.Notifications);

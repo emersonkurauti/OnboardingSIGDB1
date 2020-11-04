@@ -49,7 +49,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             return inseriu;
         }
 
-        public bool Alterar(int id, FuncionarioAlteracaoDTO dto)
+        public bool Alterar(int id, FuncionarioDTO dto)
         {
             _funcionario = _mapper.Map<Funcionario>(dto);
 

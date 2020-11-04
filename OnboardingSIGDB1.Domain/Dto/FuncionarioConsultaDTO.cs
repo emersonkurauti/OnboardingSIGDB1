@@ -6,7 +6,7 @@ namespace OnboardingSIGDB1.Domain.Dto
     {
         public int? CargoId { get; set; }
         public string CargoDescricao { get; set; }
+        public string EmpresaNome { get; set; }
         public DateTime? DataVinculo { get; set; }
-        public EmpresaDTO Empresa { get; set; }
     }
 }
