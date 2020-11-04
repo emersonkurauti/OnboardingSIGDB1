@@ -31,6 +31,8 @@ namespace OnboardingSIGDB1.Domain.AutoMapper
                     opt.MapFrom(f => f.FuncionarioCargo.OrderByDescending(x => x.DataVinculo).FirstOrDefault().DataVinculo);
                 })
                 .ForMember(f => f.Cpf, o => o.MapFrom(f => Convert.ToUInt64(f.Cpf).ToString(@"000\.000\.000\-00")));
+            CreateMap<FuncionarioAlteracaoDTO, Funcionario>()
+                .ForMember(f => f.Cpf, o => o.MapFrom(f => Regex.Replace(f.Cpf, @"[-,.]", string.Empty)));
         }
     }
 }
