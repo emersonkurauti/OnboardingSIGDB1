@@ -2,6 +2,7 @@
 using OnboardingSIGDB1.Domain.Interfaces.Empresas;
 using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Utils;
+using System.Linq;
 
 namespace OnboardingSIGDB1.Domain.Services.Empresas
 {
@@ -24,6 +25,9 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
 
             if (empresa == null)
                 notificationContext.AddNotification(Constantes.sChaveErroLocalizar, Constantes.sMensagemErroLocalizar);
+
+            if (_unitOfWork.FuncionarioRepository.GetAll(f => f.EmpresaId == id).Any())
+                notificationContext.AddNotification(Constantes.sChaveErroFuncionarioEmpresa, Constantes.sMensagemErroFuncionarioEmpresa);
 
             if (notificationContext.HasNotifications)
                 return false;
