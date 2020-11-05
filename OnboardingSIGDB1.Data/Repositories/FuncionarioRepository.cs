@@ -20,7 +20,7 @@ namespace OnboardingSIGDB1.Data.Repositories
 
         public FuncionarioConsultaDTO GetFuncionario(int id)
         {
-            return _dbSet.ProjectTo<FuncionarioConsultaDTO>().Where(f => f.Id == id).FirstOrDefault();
+            return _dbSet.Where(f => f.Id == id).ProjectTo<FuncionarioConsultaDTO>().FirstOrDefault();
         }
     }
 }

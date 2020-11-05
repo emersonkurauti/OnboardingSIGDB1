@@ -69,10 +69,10 @@ namespace OnboardingSIGDB1.API.Controllers
         /// <param name="filtro"></param>
         /// <returns></returns>
         [HttpGet("pesquisar")]
-        public IEnumerable<FuncionarioDTO> Get([FromQuery] FiltrosFuncionario filtro)
+        public IEnumerable<FuncionarioConsultaDTO> Get([FromQuery] FiltrosFuncionario filtro)
         {
-            var funcionarios = _unitOfWork.FuncionarioRepository.GetAll();
-            var funcionariosDto = _mapper.Map<IEnumerable<FuncionarioDTO>>(funcionarios);
+            var funcionarios = _unitOfWork.FuncionarioRepository.GetAllFuncionarios();
+            var funcionariosDto = _mapper.Map<IEnumerable<FuncionarioConsultaDTO>>(funcionarios);
 
             if (filtro.Nome != null)
             {
