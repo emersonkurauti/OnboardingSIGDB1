@@ -8,7 +8,6 @@ namespace OnboardingSIGDB1.Domain.Interfaces
     public interface IGravarService
     {
         NotificationContext notificationContext { get; set; }
-        int Id { get; set; }
 
         void ValidarEntidade();
         void ValidarExiste(int id);

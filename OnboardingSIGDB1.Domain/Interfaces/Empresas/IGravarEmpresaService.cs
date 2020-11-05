@@ -7,7 +7,7 @@ namespace OnboardingSIGDB1.Domain.Interfaces.Empresas
     {
         void ValidarExisteMesmoCNPJ(string cnpj);
         void ValidarCNPJ(string cnpj);
-        bool Adicionar(EmpresaDTO dto);
+        bool Adicionar(ref EmpresaDTO dto);
         bool Alterar(int id, EmpresaDTO dto);
     }
 }

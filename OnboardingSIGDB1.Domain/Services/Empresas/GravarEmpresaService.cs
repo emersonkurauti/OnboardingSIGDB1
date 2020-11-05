@@ -11,7 +11,6 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
     public class GravarEmpresaService : IGravarEmpresaService
     {
         public NotificationContext notificationContext { get; set; }
-        public int Id { get; set; }
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private Empresa _empresa;
@@ -23,7 +22,7 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
             notificationContext = new NotificationContext();
         }
 
-        public bool Adicionar(EmpresaDTO dto)
+        public bool Adicionar(ref EmpresaDTO dto)
         {
             _empresa = _mapper.Map<Empresa>(dto);
 
@@ -40,7 +39,7 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
             if (!inseriu)
                 notificationContext.AddNotification(Constantes.sChaveErroInclusao, Constantes.sMensagemErroInclusao);
 
-            Id = _empresa.Id;
+            dto = _mapper.Map<EmpresaDTO>(_empresa);
 
             return inseriu;
         }

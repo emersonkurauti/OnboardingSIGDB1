@@ -12,7 +12,7 @@ namespace OnboardingSIGDB1.Domain.Interfaces.Funcionarios
         void ValidarCPF(string cpf);
         void ValidarEmpresaVinculada(int id);
         void ValidarEmpresaExiste(int id);
-        bool Adicionar(FuncionarioDTO dto);
+        bool Adicionar(ref FuncionarioDTO dto);
         bool Alterar(int id, FuncionarioDTO dto);
         bool VincularEmpresa(int id, FuncionarioEmpresaDTO dto);
     }

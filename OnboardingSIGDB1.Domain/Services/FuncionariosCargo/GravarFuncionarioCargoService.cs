@@ -14,7 +14,6 @@ namespace OnboardingSIGDB1.Domain.Services.FuncionariosCargo
     public class GravarFuncionarioCargoService : IGravarFuncionarioCargoService
     {
         public NotificationContext notificationContext { get; set; }
-        public int Id { get; set; }
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private FuncionarioCargo _funcionarioCargo;

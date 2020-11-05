@@ -15,7 +15,6 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
     public class GravarFuncionarioService : IGravarFuncionarioService
     {
         public NotificationContext notificationContext { get; set; }
-        public int Id { get; set; }
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private Funcionario _funcionario;
@@ -27,7 +26,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             notificationContext = new NotificationContext();
         }
 
-        public bool Adicionar(FuncionarioDTO dto)
+        public bool Adicionar(ref FuncionarioDTO dto)
         {
             _funcionario = _mapper.Map<Funcionario>(dto);
 
@@ -44,7 +43,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             if (!inseriu)
                 notificationContext.AddNotification(Constantes.sChaveErroInclusao, Constantes.sMensagemErroInclusao);
 
-            Id = _funcionario.Id;
+            dto = _mapper.Map<FuncionarioDTO>(_funcionario);
 
             return inseriu;
         }

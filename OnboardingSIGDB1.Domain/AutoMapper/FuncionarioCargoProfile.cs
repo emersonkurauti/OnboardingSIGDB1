@@ -11,8 +11,7 @@ namespace OnboardingSIGDB1.Domain.AutoMapper
     {
         public FuncionarioCargoProfile()
         {
-            CreateMap<FuncionarioCargo, FuncionarioCargoDTO>();
-            CreateMap<FuncionarioCargoDTO, FuncionarioCargo>();
+            CreateMap<FuncionarioCargo, FuncionarioCargoDTO>().ReverseMap();
         }
     }
 }

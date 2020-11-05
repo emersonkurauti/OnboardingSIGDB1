@@ -11,7 +11,6 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
     public class GravarCargoService : IGravarCargoService
     {
         public NotificationContext notificationContext { get; set; }
-        public int Id { get; set; }
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private Cargo _cargo;
@@ -23,9 +22,9 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
             _mapper = mapper;
         }
 
-        public bool Adicionar(CargoDTO dto)
+        public bool Adicionar(ref CargoDTO dto)
         {
-            _cargo = _mapper.Map<Entitys.Cargo>(dto);
+            _cargo = _mapper.Map<Cargo>(dto);
 
             ValidarEntidade();
 
@@ -38,7 +37,7 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
             if (!inseriu)
                 notificationContext.AddNotification(Constantes.sChaveErroInclusao, Constantes.sMensagemErroInclusao);
 
-            Id = _cargo.Id;
+            dto = _mapper.Map<CargoDTO>(_cargo);
 
             return inseriu;
         }

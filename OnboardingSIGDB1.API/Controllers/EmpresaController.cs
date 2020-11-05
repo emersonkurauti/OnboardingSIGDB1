@@ -108,12 +108,11 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] EmpresaDTO dto)
         {
-            var inseriu = _gravarEmpresaService.Adicionar(dto);
+            var inseriu = _gravarEmpresaService.Adicionar(ref dto);
 
             if (!inseriu)
                 return BadRequest(_gravarEmpresaService.notificationContext.Notifications);
 
-            dto.Id = _gravarEmpresaService.Id;
             return Created($"/api/empresa/{dto.Id}", dto);
         }
 

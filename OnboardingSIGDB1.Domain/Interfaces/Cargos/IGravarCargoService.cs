@@ -5,7 +5,7 @@ namespace OnboardingSIGDB1.Domain.Interfaces.Cargos
 {
     public interface IGravarCargoService : IGravarService
     {
-        bool Adicionar(CargoDTO dto);
+        bool Adicionar(ref CargoDTO dto);
         bool Alterar(int id, CargoDTO dto);
     }
 }

@@ -100,12 +100,11 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpPost]
         public IActionResult Post(FuncionarioDTO dto)
         {
-            var inseriu = _gravarFuncionarioService.Adicionar(dto);
+            var inseriu = _gravarFuncionarioService.Adicionar(ref dto);
 
             if (!inseriu)
                 return BadRequest(_gravarFuncionarioService.notificationContext.Notifications);
 
-            dto.Id = _gravarFuncionarioService.Id;
             return Created($"/api/funcionario/{dto.Id}", dto);
         }
 
