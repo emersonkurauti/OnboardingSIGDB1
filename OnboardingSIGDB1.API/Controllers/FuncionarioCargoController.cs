@@ -13,20 +13,14 @@ namespace OnboardingSIGDB1.API.Controllers
     [ApiController]
     public class FuncionarioCargoController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         private readonly IGravarFuncionarioCargoService _gravarFuncionarioCargoService;
 
         /// <summary>
         /// Construtor
         /// </summary>
-        /// <param name="unitOfWork"></param>
-        /// <param name="mapper"></param>
         /// <param name="gravarFuncionarioCargoService"></param>
-        public FuncionarioCargoController(IUnitOfWork unitOfWork, IMapper mapper, IGravarFuncionarioCargoService gravarFuncionarioCargoService)
+        public FuncionarioCargoController(IGravarFuncionarioCargoService gravarFuncionarioCargoService)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _gravarFuncionarioCargoService = gravarFuncionarioCargoService;
         }
 
