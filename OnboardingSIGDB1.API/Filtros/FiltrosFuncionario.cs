@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace OnboardingSIGDB1.API.Filtros
+﻿namespace OnboardingSIGDB1.API.Filtros
 {
     /// <summary>
     /// Filtros para consulta da funcionário

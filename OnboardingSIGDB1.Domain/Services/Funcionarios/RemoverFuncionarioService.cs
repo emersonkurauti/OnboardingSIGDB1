@@ -2,9 +2,6 @@
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Utils;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 {

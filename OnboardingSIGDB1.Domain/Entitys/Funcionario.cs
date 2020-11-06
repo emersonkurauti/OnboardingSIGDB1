@@ -2,7 +2,6 @@
 using OnboardingSIGDB1.Domain.Base;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnboardingSIGDB1.Domain.Entitys
 {

@@ -1,8 +1,6 @@
-﻿using System;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace OnboardingSIGDB1.Domain.Notifications
 {

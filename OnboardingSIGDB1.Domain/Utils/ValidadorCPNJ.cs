@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OnboardingSIGDB1.Domain.Utils
+﻿namespace OnboardingSIGDB1.Domain.Utils
 {
     public static class ValidadorCPNJ
     {

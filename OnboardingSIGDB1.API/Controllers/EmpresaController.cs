@@ -4,12 +4,9 @@ using OnboardingSIGDB1.API.Filtros;
 using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Interfaces.Empresas;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace OnboardingSIGDB1.API.Controllers
 {

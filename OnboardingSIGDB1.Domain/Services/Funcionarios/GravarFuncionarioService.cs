@@ -4,11 +4,7 @@ using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 using OnboardingSIGDB1.Domain.Notifications;
-using OnboardingSIGDB1.Domain.Services.Empresas;
 using OnboardingSIGDB1.Domain.Utils;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 {

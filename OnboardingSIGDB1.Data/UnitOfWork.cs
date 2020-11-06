@@ -2,8 +2,6 @@
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 using System;
 using OnboardingSIGDB1.Data.Repositories;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OnboardingSIGDB1.Data
 {

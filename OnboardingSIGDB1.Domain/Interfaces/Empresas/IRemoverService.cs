@@ -1,9 +1,4 @@
-﻿using OnboardingSIGDB1.Domain.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OnboardingSIGDB1.Domain.Interfaces.Empresas
+﻿namespace OnboardingSIGDB1.Domain.Interfaces.Empresas
 {
     public interface IRemoverEmpresaService : IRemoverService
     {

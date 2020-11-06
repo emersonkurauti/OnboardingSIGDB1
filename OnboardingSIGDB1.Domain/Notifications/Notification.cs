@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OnboardingSIGDB1.Domain.Notifications
+﻿namespace OnboardingSIGDB1.Domain.Notifications
 {
     public class Notification
     {
