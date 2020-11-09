@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnboardingSIGDB1.Data", "OnboardingSIGDB1.Data\OnboardingSIGDB1.Data.csproj", "{81297277-B78B-422C-8E5C-10EF6AE644E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnboardingSIGDB1.Data", "OnboardingSIGDB1.Data\OnboardingSIGDB1.Data.csproj", "{81297277-B78B-422C-8E5C-10EF6AE644E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnboardingSIGDB1.Domain", "OnboardingSIGDB1.Domain\OnboardingSIGDB1.Domain.csproj", "{13D7D603-0C0E-42B5-8941-D909F1FC13B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnboardingSIGDB1.Domain", "OnboardingSIGDB1.Domain\OnboardingSIGDB1.Domain.csproj", "{13D7D603-0C0E-42B5-8941-D909F1FC13B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnboardingSIGDB1.IOC", "OnboardingSIGDB1.IOC\OnboardingSIGDB1.IOC.csproj", "{508B6825-6C45-4211-8A56-0E23218B9D0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnboardingSIGDB1.IOC", "OnboardingSIGDB1.IOC\OnboardingSIGDB1.IOC.csproj", "{508B6825-6C45-4211-8A56-0E23218B9D0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnboardingSIGDB1.API", "OnboardingSIGDB1.API\OnboardingSIGDB1.API.csproj", "{8B408EAF-66CE-4361-8738-911369648A23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnboardingSIGDB1.API", "OnboardingSIGDB1.API\OnboardingSIGDB1.API.csproj", "{8B408EAF-66CE-4361-8738-911369648A23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnboardingSIGDB1.DomainTest", "OnboardingSIGDB1.DomainTest\OnboardingSIGDB1.DomainTest.csproj", "{AD14EA9B-5078-4A16-A9C1-BDC86D8C9AB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,14 @@ Global
 		{8B408EAF-66CE-4361-8738-911369648A23}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8B408EAF-66CE-4361-8738-911369648A23}.Release|x64.ActiveCfg = Release|Any CPU
 		{8B408EAF-66CE-4361-8738-911369648A23}.Release|x64.Build.0 = Release|Any CPU
+		{AD14EA9B-5078-4A16-A9C1-BDC86D8C9AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD14EA9B-5078-4A16-A9C1-BDC86D8C9AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD14EA9B-5078-4A16-A9C1-BDC86D8C9AB4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AD14EA9B-5078-4A16-A9C1-BDC86D8C9AB4}.Debug|x64.Build.0 = Debug|Any CPU
+		{AD14EA9B-5078-4A16-A9C1-BDC86D8C9AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD14EA9B-5078-4A16-A9C1-BDC86D8C9AB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD14EA9B-5078-4A16-A9C1-BDC86D8C9AB4}.Release|x64.ActiveCfg = Release|Any CPU
+		{AD14EA9B-5078-4A16-A9C1-BDC86D8C9AB4}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
