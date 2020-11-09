@@ -12,11 +12,19 @@ namespace OnboardingSIGDB1.DomainTest
         [InlineData("")]
         [InlineData(null)]
         [InlineData("Descrição de cargo com mais de 250 caracteres ................................................................................................................................................................................................................")]
-        public void TestarCriacaoCursoDescricaoInvalida(string descricao)
+        public void TestarCriacaoCargoDescricaoInvalida(string descricao)
         {
             Cargo cargo = new Cargo();
             cargo.Descricao = descricao;
             Assert.False(cargo.Validar());
+        }
+
+        [Fact]
+        public void TestarCriacaoCargoDescricaoValida()
+        {
+            Cargo cargo = new Cargo();
+            cargo.Descricao = "Desenvolvedor";
+            Assert.True(cargo.Validar());
         }
     }
 }
