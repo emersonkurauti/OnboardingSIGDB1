@@ -24,7 +24,8 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 
         public bool Adicionar(ref FuncionarioDTO dto)
         {
-            _funcionario = _mapper.Map<Funcionario>(dto);
+            _funcionario = new Funcionario(dto.Nome, dto.Cpf);
+            _funcionario.AlterarDataContratacao(dto.DataContratacao);
 
             ValidarExisteMesmoCPF(_funcionario.Cpf);
             ValidarCPF(_funcionario.Cpf);
@@ -46,9 +47,14 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 
         public bool Alterar(int id, FuncionarioDTO dto)
         {
-            _funcionario = _mapper.Map<Funcionario>(dto);
+            _funcionario = _unitOfWork.FuncionarioRepository.Get(f => f.Id == id);
 
-            ValidarExiste(id);
+            ValidarExiste();
+
+            _funcionario.AlterarNome(dto.Nome);
+            _funcionario.AlterarCpf(dto.Cpf);
+            _funcionario.AlterarDataContratacao(dto.DataContratacao);
+
             ValidarCPF(_funcionario.Cpf);
             ValidarEntidade();
 
@@ -66,14 +72,18 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 
         public bool VincularEmpresa(int id, FuncionarioEmpresaDTO dto)
         {
-            ValidarExiste(id);
+            _funcionario = _unitOfWork.FuncionarioRepository.Get(f => f.Id == id);
+
+            ValidarExiste();
+
+            _funcionario.AlterarEmpresaId(dto.EmpresaId);
+
             ValidarEmpresaVinculada(id);
             ValidarEmpresaExiste(dto.EmpresaId);
 
             if (notificationContext.HasNotifications)
                 return false;
 
-            _funcionario.EmpresaId = dto.EmpresaId;
             _unitOfWork.FuncionarioRepository.Update(_funcionario);
             var alterou = _unitOfWork.Commit();
 
@@ -95,9 +105,9 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
                 notificationContext.AddNotifications(_funcionario.ValidationResult);
         }
 
-        public void ValidarExiste(int id)
+        public void ValidarExiste()
         {
-            if (!_unitOfWork.FuncionarioRepository.Exist(f => f.Id == id))
+            if (_funcionario == null)
                 notificationContext.AddNotification(Constantes.sChaveErroLocalizar, Constantes.sMensagemErroLocalizar);
         }
 
@@ -109,8 +119,6 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 
         public void ValidarEmpresaVinculada(int id)
         {
-            _funcionario = _unitOfWork.FuncionarioRepository.Get(f => f.Id == id);
-
             if (_funcionario != null && _funcionario.EmpresaId.HasValue)
                 notificationContext.AddNotification(Constantes.sChaveErroEmpresaVinculada, Constantes.sMensagemErroEmpresaVinculada);
         }

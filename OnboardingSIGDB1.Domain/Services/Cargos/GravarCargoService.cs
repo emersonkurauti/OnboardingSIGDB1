@@ -24,7 +24,7 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
 
         public bool Adicionar(ref CargoDTO dto)
         {
-            _cargo = _mapper.Map<Cargo>(dto);
+            _cargo = new Cargo(dto.Descricao);
 
             ValidarEntidade();
 
@@ -44,13 +44,15 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
 
         public bool Alterar(int id, CargoDTO dto)
         {
-            _cargo = _mapper.Map<Entitys.Cargo>(dto);
+            _cargo = _unitOfWork.CargoRepository.Get(c => c.Id == id);
 
+            ValidarExiste();
             ValidarEntidade();
-            ValidarExiste(id);
 
             if (notificationContext.HasNotifications)
                 return false;
+
+            _cargo.AlterarDescricao(dto.Descricao);
 
             _unitOfWork.CargoRepository.Update(_cargo);
             var alterou = _unitOfWork.Commit();
@@ -61,15 +63,16 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
             return alterou;
         }
 
+        //Mudar as validações para classes separadas
         public void ValidarEntidade()
         {
-            if (!_cargo.Validar())
+            if (_cargo != null && !_cargo.Validar())
                 notificationContext.AddNotifications(_cargo.ValidationResult);
         }
 
-        public void ValidarExiste(int id)
+        public void ValidarExiste()
         {
-            if (!_unitOfWork.CargoRepository.Exist(c => c.Id == id))
+            if (_cargo == null)
                 notificationContext.AddNotification(Constantes.sChaveErroLocalizar, Constantes.sMensagemErroLocalizar);
         }
     }

@@ -9,7 +9,6 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
     public class RemoverCargoService : IRemoverCargoService
     {
         public NotificationContext notificationContext { get; set; }
-        public int Id { get; set; }
 
         private readonly IUnitOfWork _unitOfWork;
 

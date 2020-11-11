@@ -8,7 +8,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
     public class RemoverFuncionarioService : IRemoverFuncionarioService
     {
         public NotificationContext notificationContext { get; set; }
-        public int Id { get; set; }
+
         private readonly IUnitOfWork _unitOfWork;
 
         public RemoverFuncionarioService(IUnitOfWork unitOfWork)

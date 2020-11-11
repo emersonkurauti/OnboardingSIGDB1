@@ -2,16 +2,40 @@
 using OnboardingSIGDB1.Domain.Base;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace OnboardingSIGDB1.Domain.Entitys
 {
     public class Empresa : EntityValidator<Empresa>
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Cnpj { get; set; }
-        public DateTime? DataFundacao { get; set; }
-        public virtual IEnumerable<Funcionario> Funcionarios { get; set; }
+        public int Id { get; private set; }
+        public string Nome { get; private set; }
+        public string Cnpj { get; private set; }
+        public DateTime? DataFundacao { get; private set; }
+        public virtual IEnumerable<Funcionario> Funcionarios { get; private set; }
+
+        protected Empresa() { }
+
+        public Empresa(string nome, string cnpj)
+        {
+            Nome = nome?.Trim();
+            Cnpj = cnpj?.Trim();
+        }
+
+        public void AlterarNome(string nome)
+        {
+            Nome = nome?.Trim();
+        }
+
+        public void AlterarCnpj(string cnpj)
+        {
+            Cnpj = cnpj?.Trim();
+        }
+
+        public void AlterarDataFundacao(DateTime? dataFundacao)
+        {
+            DataFundacao = dataFundacao;
+        }
 
         public override bool Validar()
         {

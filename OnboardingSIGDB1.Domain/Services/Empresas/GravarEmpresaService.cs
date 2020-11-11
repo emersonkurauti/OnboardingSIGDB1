@@ -24,7 +24,8 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
 
         public bool Adicionar(ref EmpresaDTO dto)
         {
-            _empresa = _mapper.Map<Empresa>(dto);
+            _empresa = new Empresa(dto.Nome, dto.Cnpj);
+            _empresa.AlterarDataFundacao(dto.DataFundacao);
 
             ValidarExisteMesmoCNPJ(_empresa.Cnpj);
             ValidarCNPJ(_empresa.Cnpj);
@@ -46,9 +47,14 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
 
         public bool Alterar(int id, EmpresaDTO dto)
         {
-            _empresa = _mapper.Map<Empresa>(dto);
+            _empresa = _unitOfWork.EmpresaRepository.Get(e => e.Id == id);
 
-            ValidarExiste(id);
+            ValidarExiste();
+
+            _empresa.AlterarNome(dto.Nome);
+            _empresa.AlterarCnpj(dto.Cnpj);
+            _empresa.AlterarDataFundacao(dto.DataFundacao);
+
             ValidarCNPJ(_empresa.Cnpj);
             ValidarEntidade();
 
@@ -78,13 +84,13 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
 
         public void ValidarCNPJ(string cnpj)
         {
-            if (!ValidadorCPNJ.ValidaCNPJ(cnpj))
+            if (_empresa != null && !ValidadorCPNJ.ValidaCNPJ(cnpj))
                 notificationContext.AddNotification(Constantes.sChaveErroCNPJInvalido, Constantes.sMensagemErroCNPJInvalido);
         }
 
-        public void ValidarExiste(int id)
+        public void ValidarExiste()
         {
-            if (!_unitOfWork.EmpresaRepository.Exist(e => e.Id == id))
+            if (_empresa == null)
                 notificationContext.AddNotification(Constantes.sChaveErroLocalizar, Constantes.sMensagemErroLocalizar);
         }
     }

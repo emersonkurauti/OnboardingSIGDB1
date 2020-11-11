@@ -25,7 +25,7 @@ namespace OnboardingSIGDB1.Domain.Services.FuncionariosCargo
 
         public bool Adicionar(FuncionarioCargoDTO dto)
         {
-            _funcionarioCargo = _mapper.Map<FuncionarioCargo>(dto);
+            _funcionarioCargo = new FuncionarioCargo(dto.CargoId, dto.FuncionarioId, dto.DataVinculo);
 
             ValidarEmpresaVinculada(_funcionarioCargo.FuncionarioId);
             ValidarExiste(_funcionarioCargo.CargoId, _funcionarioCargo.FuncionarioId);
@@ -63,7 +63,7 @@ namespace OnboardingSIGDB1.Domain.Services.FuncionariosCargo
                 notificationContext.AddNotification(Constantes.sChaveErrooFuncionarioCargo, Constantes.sMensagemErrooFuncionarioCargo);
         }
 
-        public void ValidarExiste(int id)
+        public void ValidarExiste()
         {
             throw new NotImplementedException();
         }

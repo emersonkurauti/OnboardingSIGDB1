@@ -6,9 +6,21 @@ namespace OnboardingSIGDB1.Domain.Entitys
 {
     public class Cargo : EntityValidator<Cargo>
     {
-        public int Id { get; set; }
-        public string Descricao { get; set; }
-        public virtual IEnumerable<FuncionarioCargo> FuncionarioCargo { get; set; }
+        public int Id { get; private set; }
+        public string Descricao { get; private set; }
+        public virtual IEnumerable<FuncionarioCargo> FuncionarioCargo { get; private set; }
+
+        protected Cargo() { }
+
+        public Cargo(string descricao)
+        {
+            Descricao = descricao?.Trim();
+        }
+
+        public void AlterarDescricao(string descricao)
+        {
+            Descricao = descricao?.Trim();
+        }
 
         public override bool Validar()
         {

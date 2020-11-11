@@ -7,6 +7,6 @@ namespace OnboardingSIGDB1.Domain.Interfaces
         NotificationContext notificationContext { get; set; }
 
         void ValidarEntidade();
-        void ValidarExiste(int id);
+        void ValidarExiste();
     }
 }

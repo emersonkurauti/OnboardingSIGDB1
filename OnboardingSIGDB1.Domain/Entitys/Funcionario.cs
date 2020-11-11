@@ -7,13 +7,41 @@ namespace OnboardingSIGDB1.Domain.Entitys
 {
     public class Funcionario : EntityValidator<Funcionario>
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Cpf { get; set; }
-        public DateTime? DataContratacao { get; set; }
-        public int? EmpresaId { get; set; }
-        public virtual Empresa Empresa { get; set; }
-        public virtual IEnumerable<FuncionarioCargo> FuncionarioCargo { get; set; }
+        public int Id { get; private set; }
+        public string Nome { get; private set; }
+        public string Cpf { get; private set; }
+        public DateTime? DataContratacao { get; private set; }
+        public int? EmpresaId { get; private set; }
+        public virtual Empresa Empresa { get; private set; }
+        public virtual IEnumerable<FuncionarioCargo> FuncionarioCargo { get; private set; }
+
+        protected Funcionario() { }
+
+        public Funcionario(string nome, string cpf)
+        {
+            Nome = nome?.Trim();
+            Cpf = cpf?.Trim();
+        }
+
+        public void AlterarNome(string nome)
+        {
+            Nome = nome?.Trim();
+        }
+
+        public void AlterarCpf(string cpf)
+        {
+            Cpf = cpf?.Trim();
+        }
+
+        public void AlterarDataContratacao(DateTime? dataContratacao)
+        {
+            DataContratacao = dataContratacao;
+        }
+
+        public void AlterarEmpresaId(int empresaId)
+        {
+            EmpresaId = empresaId;
+        }
 
         public override bool Validar()
         {

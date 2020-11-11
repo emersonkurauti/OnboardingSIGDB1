@@ -9,7 +9,6 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
     public class RemoverEmpresaService : IRemoverEmpresaService
     {
         public NotificationContext notificationContext { get; set; }
-        public int Id { get; set; }
 
         private readonly IUnitOfWork _unitOfWork;
 
