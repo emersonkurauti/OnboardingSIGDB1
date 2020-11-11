@@ -1,25 +1,26 @@
 ﻿using AutoMapper;
 using OnboardingSIGDB1.Data;
+using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Domain.Interfaces.Empresas;
 using OnboardingSIGDB1.Domain.Notifications;
+using OnboardingSIGDB1.Domain.Services.Empresas.Validadores;
 using OnboardingSIGDB1.Domain.Utils;
 
 namespace OnboardingSIGDB1.Domain.Services.Empresas
 {
-    public class GravarEmpresaService : IGravarEmpresaService
+    public class GravarEmpresaService : GravarServiceBase, IGravarEmpresaService
     {
-        public NotificationContext notificationContext { get; set; }
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         private Empresa _empresa;
+        private EmpresaValidador _validador;
 
         public GravarEmpresaService(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             notificationContext = new NotificationContext();
+            _validador = new EmpresaValidador(notificationContext, _empresa, _unitOfWork);
         }
 
         public bool Adicionar(ref EmpresaDTO dto)
@@ -27,9 +28,8 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
             _empresa = new Empresa(dto.Nome, dto.Cnpj);
             _empresa.AlterarDataFundacao(dto.DataFundacao);
 
-            ValidarExisteMesmoCNPJ(_empresa.Cnpj);
-            ValidarCNPJ(_empresa.Cnpj);
-            ValidarEntidade();
+            _validador.entidade = _empresa;
+            _validador.ValidarInclusao();
 
             if (notificationContext.HasNotifications)
                 return false;
@@ -48,15 +48,12 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
         public bool Alterar(int id, EmpresaDTO dto)
         {
             _empresa = _unitOfWork.EmpresaRepository.Get(e => e.Id == id);
-
-            ValidarExiste();
-
             _empresa.AlterarNome(dto.Nome);
             _empresa.AlterarCnpj(dto.Cnpj);
             _empresa.AlterarDataFundacao(dto.DataFundacao);
 
-            ValidarCNPJ(_empresa.Cnpj);
-            ValidarEntidade();
+            _validador.entidade = _empresa;
+            _validador.ValidarAlteracao();
 
             if (notificationContext.HasNotifications)
                 return false;
@@ -68,30 +65,6 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
                 notificationContext.AddNotification(Constantes.sChaveErroAlteracao, Constantes.sMensagemErroAlteracao);
 
             return alterou;
-        }
-
-        public void ValidarEntidade()
-        {
-            if (!_empresa.Validar())
-                notificationContext.AddNotifications(_empresa.ValidationResult);
-        }
-
-        public void ValidarExisteMesmoCNPJ(string cnpj)
-        {
-            if (_unitOfWork.EmpresaRepository.Exist(e => e.Cnpj == cnpj))
-                notificationContext.AddNotification(Constantes.sChaveErroMesmoCNPJ, Constantes.sMensagemErroMesmoCNPJ);
-        }
-
-        public void ValidarCNPJ(string cnpj)
-        {
-            if (_empresa != null && !ValidadorCPNJ.ValidaCNPJ(cnpj))
-                notificationContext.AddNotification(Constantes.sChaveErroCNPJInvalido, Constantes.sMensagemErroCNPJInvalido);
-        }
-
-        public void ValidarExiste()
-        {
-            if (_empresa == null)
-                notificationContext.AddNotification(Constantes.sChaveErroLocalizar, Constantes.sMensagemErroLocalizar);
         }
     }
 }

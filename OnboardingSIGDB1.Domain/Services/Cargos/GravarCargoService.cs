@@ -1,32 +1,34 @@
 ﻿using AutoMapper;
 using OnboardingSIGDB1.Data;
+using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Domain.Interfaces.Cargos;
 using OnboardingSIGDB1.Domain.Notifications;
+using OnboardingSIGDB1.Domain.Services.Cargos.Validadores;
 using OnboardingSIGDB1.Domain.Utils;
 
 namespace OnboardingSIGDB1.Domain.Services.Cargos
 {
-    public class GravarCargoService : IGravarCargoService
+    public class GravarCargoService : GravarServiceBase, IGravarCargoService
     {
-        public NotificationContext notificationContext { get; set; }
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         private Cargo _cargo;
+        private CargoValidador _validador;
 
         public GravarCargoService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             notificationContext = new NotificationContext();
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _validador = new CargoValidador(notificationContext, _cargo);
         }
 
         public bool Adicionar(ref CargoDTO dto)
         {
             _cargo = new Cargo(dto.Descricao);
 
-            ValidarEntidade();
+            _validador.entidade = _cargo;
+            _validador.ValidarInclusao();
 
             if (notificationContext.HasNotifications)
                 return false;
@@ -45,14 +47,13 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
         public bool Alterar(int id, CargoDTO dto)
         {
             _cargo = _unitOfWork.CargoRepository.Get(c => c.Id == id);
+            _cargo.AlterarDescricao(dto.Descricao);
 
-            ValidarExiste();
-            ValidarEntidade();
+            _validador.entidade = _cargo;
+            _validador.ValidarAlteracao();
 
             if (notificationContext.HasNotifications)
                 return false;
-
-            _cargo.AlterarDescricao(dto.Descricao);
 
             _unitOfWork.CargoRepository.Update(_cargo);
             var alterou = _unitOfWork.Commit();
@@ -63,17 +64,5 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
             return alterou;
         }
 
-        //Mudar as validações para classes separadas
-        public void ValidarEntidade()
-        {
-            if (_cargo != null && !_cargo.Validar())
-                notificationContext.AddNotifications(_cargo.ValidationResult);
-        }
-
-        public void ValidarExiste()
-        {
-            if (_cargo == null)
-                notificationContext.AddNotification(Constantes.sChaveErroLocalizar, Constantes.sMensagemErroLocalizar);
-        }
     }
 }

@@ -2,6 +2,7 @@
 using OnboardingSIGDB1.Domain.Base;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace OnboardingSIGDB1.Domain.Entitys
 {
@@ -20,7 +21,7 @@ namespace OnboardingSIGDB1.Domain.Entitys
         public Funcionario(string nome, string cpf)
         {
             Nome = nome?.Trim();
-            Cpf = cpf?.Trim();
+            Cpf = Regex.Replace(cpf?.Trim(), @"[-,.]", string.Empty);
         }
 
         public void AlterarNome(string nome)
@@ -30,7 +31,7 @@ namespace OnboardingSIGDB1.Domain.Entitys
 
         public void AlterarCpf(string cpf)
         {
-            Cpf = cpf?.Trim();
+            Cpf = Regex.Replace(cpf?.Trim(), @"[-,.]", string.Empty);
         }
 
         public void AlterarDataContratacao(DateTime? dataContratacao)

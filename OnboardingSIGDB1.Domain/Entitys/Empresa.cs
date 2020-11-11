@@ -2,7 +2,7 @@
 using OnboardingSIGDB1.Domain.Base;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace OnboardingSIGDB1.Domain.Entitys
 {
@@ -19,7 +19,7 @@ namespace OnboardingSIGDB1.Domain.Entitys
         public Empresa(string nome, string cnpj)
         {
             Nome = nome?.Trim();
-            Cnpj = cnpj?.Trim();
+            Cnpj = Regex.Replace(cnpj?.Trim(), @"[-,.,/]", string.Empty);
         }
 
         public void AlterarNome(string nome)
@@ -29,7 +29,7 @@ namespace OnboardingSIGDB1.Domain.Entitys
 
         public void AlterarCnpj(string cnpj)
         {
-            Cnpj = cnpj?.Trim();
+            Cnpj = Regex.Replace(cnpj?.Trim(), @"[-,.,/]", string.Empty);
         }
 
         public void AlterarDataFundacao(DateTime? dataFundacao)

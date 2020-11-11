@@ -1,25 +1,26 @@
 ﻿using AutoMapper;
 using OnboardingSIGDB1.Data;
+using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 using OnboardingSIGDB1.Domain.Notifications;
+using OnboardingSIGDB1.Domain.Services.Funcionarios.Validadores;
 using OnboardingSIGDB1.Domain.Utils;
 
 namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 {
-    public class GravarFuncionarioService : IGravarFuncionarioService
+    public class GravarFuncionarioService : GravarServiceBase, IGravarFuncionarioService
     {
-        public NotificationContext notificationContext { get; set; }
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         private Funcionario _funcionario;
+        private FuncionarioValidador _validador;
 
         public GravarFuncionarioService(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             notificationContext = new NotificationContext();
+            _validador = new FuncionarioValidador(notificationContext, _funcionario, _unitOfWork);
         }
 
         public bool Adicionar(ref FuncionarioDTO dto)
@@ -27,9 +28,8 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             _funcionario = new Funcionario(dto.Nome, dto.Cpf);
             _funcionario.AlterarDataContratacao(dto.DataContratacao);
 
-            ValidarExisteMesmoCPF(_funcionario.Cpf);
-            ValidarCPF(_funcionario.Cpf);
-            ValidarEntidade();
+            _validador.entidade = _funcionario;
+            _validador.ValidarInclusao();
 
             if (notificationContext.HasNotifications)
                 return false;
@@ -48,15 +48,12 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
         public bool Alterar(int id, FuncionarioDTO dto)
         {
             _funcionario = _unitOfWork.FuncionarioRepository.Get(f => f.Id == id);
-
-            ValidarExiste();
-
             _funcionario.AlterarNome(dto.Nome);
             _funcionario.AlterarCpf(dto.Cpf);
             _funcionario.AlterarDataContratacao(dto.DataContratacao);
 
-            ValidarCPF(_funcionario.Cpf);
-            ValidarEntidade();
+            _validador.entidade = _funcionario;
+            _validador.ValidarAlteracao();
 
             if (notificationContext.HasNotifications)
                 return false;
@@ -73,13 +70,10 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
         public bool VincularEmpresa(int id, FuncionarioEmpresaDTO dto)
         {
             _funcionario = _unitOfWork.FuncionarioRepository.Get(f => f.Id == id);
-
-            ValidarExiste();
-
             _funcionario.AlterarEmpresaId(dto.EmpresaId);
 
-            ValidarEmpresaVinculada(id);
-            ValidarEmpresaExiste(dto.EmpresaId);
+            _validador.entidade = _funcionario;
+            _validador.ValidarVinculacaoEmpresa();
 
             if (notificationContext.HasNotifications)
                 return false;
@@ -91,42 +85,6 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
                 notificationContext.AddNotification(Constantes.sChaveErroAlteracao, Constantes.sMensagemErroAlteracao);
 
             return alterou;
-        }
-
-        public void ValidarCPF(string cpf)
-        {
-            if (!ValidadorCPF.ValidaCPF(cpf))
-                notificationContext.AddNotification(Constantes.sChaveErroCPFInvalido, Constantes.sMensagemErroCPFInvalido);
-        }
-
-        public void ValidarEntidade()
-        {
-            if (!_funcionario.Validar())
-                notificationContext.AddNotifications(_funcionario.ValidationResult);
-        }
-
-        public void ValidarExiste()
-        {
-            if (_funcionario == null)
-                notificationContext.AddNotification(Constantes.sChaveErroLocalizar, Constantes.sMensagemErroLocalizar);
-        }
-
-        public void ValidarExisteMesmoCPF(string cpf)
-        {
-            if (_unitOfWork.FuncionarioRepository.Exist(f => f.Cpf== cpf))
-                notificationContext.AddNotification(Constantes.sChaveErroMesmoCPF, Constantes.sMensagemErroMesmoCPF);
-        }
-
-        public void ValidarEmpresaVinculada(int id)
-        {
-            if (_funcionario != null && _funcionario.EmpresaId.HasValue)
-                notificationContext.AddNotification(Constantes.sChaveErroEmpresaVinculada, Constantes.sMensagemErroEmpresaVinculada);
-        }
-
-        public void ValidarEmpresaExiste(int id)
-        {
-            if (!_unitOfWork.EmpresaRepository.Exist(e => e.Id == id))
-                notificationContext.AddNotification(Constantes.sChaveErroEmpresaNaoLocalizadaParaVincular, Constantes.sMensagemErroEmpresaNaoLocalizadaParaVincular);
         }
     }
 }
