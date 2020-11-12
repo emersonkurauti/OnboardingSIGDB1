@@ -9,11 +9,11 @@
             Controller
             </summary>
         </member>
-        <member name="M:OnboardingSIGDB1.API.Controllers.CargoController.#ctor(OnboardingSIGDB1.Data.IUnitOfWork,AutoMapper.IMapper,OnboardingSIGDB1.Domain.Interfaces.Cargos.IGravarCargoService,OnboardingSIGDB1.Domain.Interfaces.Cargos.IRemoverCargoService)">
+        <member name="M:OnboardingSIGDB1.API.Controllers.CargoController.#ctor(OnboardingSIGDB1.Data.IRepository{OnboardingSIGDB1.Domain.Entitys.Cargo},AutoMapper.IMapper,OnboardingSIGDB1.Domain.Interfaces.Cargos.IGravarCargoService,OnboardingSIGDB1.Domain.Interfaces.Cargos.IRemoverCargoService)">
             <summary>
             Contrutor
             </summary>
-            <param name="unitOfWork"></param>
+            <param name="cargoRepository"></param>
             <param name="mapper"></param>
             <param name="gravarCargoService"></param>
             <param name="removerService"></param>
@@ -58,11 +58,11 @@
             Controller
             </summary>
         </member>
-        <member name="M:OnboardingSIGDB1.API.Controllers.EmpresaController.#ctor(OnboardingSIGDB1.Data.IUnitOfWork,AutoMapper.IMapper,OnboardingSIGDB1.Domain.Interfaces.Empresas.IGravarEmpresaService,OnboardingSIGDB1.Domain.Interfaces.Empresas.IRemoverEmpresaService)">
+        <member name="M:OnboardingSIGDB1.API.Controllers.EmpresaController.#ctor(OnboardingSIGDB1.Data.IRepository{OnboardingSIGDB1.Domain.Entitys.Empresa},AutoMapper.IMapper,OnboardingSIGDB1.Domain.Interfaces.Empresas.IGravarEmpresaService,OnboardingSIGDB1.Domain.Interfaces.Empresas.IRemoverEmpresaService)">
             <summary>
             Construtor
             </summary>
-            <param name="unitOfWork"></param>
+            <param name="empresaRepository"></param>
             <param name="mapper"></param>
             <param name="gravarEmpresaService"></param>
             <param name="removerEmpresaService"></param>
@@ -132,11 +132,11 @@
             Controller
             </summary>
         </member>
-        <member name="M:OnboardingSIGDB1.API.Controllers.FuncionarioController.#ctor(OnboardingSIGDB1.Data.IUnitOfWork,AutoMapper.IMapper,OnboardingSIGDB1.Domain.Interfaces.Funcionarios.IGravarFuncionarioService,OnboardingSIGDB1.Domain.Interfaces.Funcionarios.IRemoverFuncionarioService)">
+        <member name="M:OnboardingSIGDB1.API.Controllers.FuncionarioController.#ctor(OnboardingSIGDB1.Domain.Interfaces.Funcionarios.IFuncionarioRepository,AutoMapper.IMapper,OnboardingSIGDB1.Domain.Interfaces.Funcionarios.IGravarFuncionarioService,OnboardingSIGDB1.Domain.Interfaces.Funcionarios.IRemoverFuncionarioService)">
             <summary>
             Construtor
             </summary>
-            <param name="unitOfWork"></param>
+            <param name="funcionarioRepository"></param>
             <param name="mapper"></param>
             <param name="gravarFuncionarioService"></param>
             <param name="removerService"></param>

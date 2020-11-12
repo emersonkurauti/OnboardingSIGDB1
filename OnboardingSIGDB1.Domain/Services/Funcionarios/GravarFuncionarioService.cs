@@ -6,21 +6,21 @@ using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Services.Funcionarios.Validadores;
-using OnboardingSIGDB1.Domain.Utils;
 
 namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 {
     public class GravarFuncionarioService : GravarServiceBase, IGravarFuncionarioService
     {
+        private readonly IFuncionarioRepository _funcionarioRepository;
         private Funcionario _funcionario;
         private FuncionarioValidador _validador;
 
-        public GravarFuncionarioService(IMapper mapper, IUnitOfWork unitOfWork)
+        public GravarFuncionarioService(IMapper mapper, IFuncionarioRepository funcionarioRepository, IRepository<Empresa> empresaRepository)
         {
             _mapper = mapper;
-            _unitOfWork = unitOfWork;
+            _funcionarioRepository = funcionarioRepository;
             notificationContext = new NotificationContext();
-            _validador = new FuncionarioValidador(notificationContext, _funcionario, _unitOfWork);
+            _validador = new FuncionarioValidador(notificationContext, _funcionario, _funcionarioRepository, empresaRepository);
         }
 
         public bool Adicionar(ref FuncionarioDTO dto)
@@ -34,20 +34,13 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             if (notificationContext.HasNotifications)
                 return false;
 
-            _unitOfWork.FuncionarioRepository.Add(_funcionario);
-            var inseriu = _unitOfWork.Commit();
-
-            if (!inseriu)
-                notificationContext.AddNotification(Constantes.sChaveErroInclusao, Constantes.sMensagemErroInclusao);
-
-            dto = _mapper.Map<FuncionarioDTO>(_funcionario);
-
-            return inseriu;
+            _funcionarioRepository.Add(_funcionario);
+            return true;
         }
 
         public bool Alterar(int id, FuncionarioDTO dto)
         {
-            _funcionario = _unitOfWork.FuncionarioRepository.Get(f => f.Id == id);
+            _funcionario = _funcionarioRepository.Get(f => f.Id == id);
             _funcionario.AlterarNome(dto.Nome);
             _funcionario.AlterarCpf(dto.Cpf);
             _funcionario.AlterarDataContratacao(dto.DataContratacao);
@@ -58,18 +51,13 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             if (notificationContext.HasNotifications)
                 return false;
 
-            _unitOfWork.FuncionarioRepository.Update(_funcionario);
-            var alterou = _unitOfWork.Commit();
-
-            if (!alterou)
-                notificationContext.AddNotification(Constantes.sChaveErroAlteracao, Constantes.sMensagemErroAlteracao);
-
-            return alterou;
+            _funcionarioRepository.Update(_funcionario);
+            return true;
         }
 
         public bool VincularEmpresa(int id, FuncionarioEmpresaDTO dto)
         {
-            _funcionario = _unitOfWork.FuncionarioRepository.Get(f => f.Id == id);
+            _funcionario = _funcionarioRepository.Get(f => f.Id == id);
             _funcionario.AlterarEmpresaId(dto.EmpresaId);
 
             _validador.entidade = _funcionario;
@@ -78,13 +66,8 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             if (notificationContext.HasNotifications)
                 return false;
 
-            _unitOfWork.FuncionarioRepository.Update(_funcionario);
-            var alterou = _unitOfWork.Commit();
-
-            if (!alterou)
-                notificationContext.AddNotification(Constantes.sChaveErroAlteracao, Constantes.sMensagemErroAlteracao);
-
-            return alterou;
+            _funcionarioRepository.Update(_funcionario);
+            return true;
         }
     }
 }

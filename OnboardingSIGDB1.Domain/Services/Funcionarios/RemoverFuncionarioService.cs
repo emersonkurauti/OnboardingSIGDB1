@@ -1,4 +1,5 @@
 ﻿using OnboardingSIGDB1.Data;
+using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Utils;
@@ -9,17 +10,17 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
     {
         public NotificationContext notificationContext { get; set; }
 
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<Funcionario> _funcionarioRepository;
 
-        public RemoverFuncionarioService(IUnitOfWork unitOfWork)
+        public RemoverFuncionarioService(IRepository<Funcionario> funcionarioRepository)
         {
-            _unitOfWork = unitOfWork;
+            _funcionarioRepository = funcionarioRepository;
             notificationContext = new NotificationContext();
         }
 
         public bool Remover(int id)
         {
-            var funcionario = _unitOfWork.FuncionarioRepository.Get(f => f.Id == id);
+            var funcionario = _funcionarioRepository.Get(f => f.Id == id);
 
             if (funcionario == null)
                 notificationContext.AddNotification(Constantes.sChaveErroLocalizar, Constantes.sMensagemErroLocalizar);
@@ -27,13 +28,8 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             if (notificationContext.HasNotifications)
                 return false;
 
-            _unitOfWork.FuncionarioRepository.Delete(funcionario);
-            var deletou = _unitOfWork.Commit();
-
-            if (!deletou)
-                notificationContext.AddNotification(Constantes.sChaveErroRemover, Constantes.sMensagemErroRemover);
-
-            return deletou;
+            _funcionarioRepository.Delete(funcionario);
+            return true;
         }
     }
 }

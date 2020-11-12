@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Dto;
+using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Domain.Interfaces.Cargos;
 
 namespace OnboardingSIGDB1.API.Controllers
@@ -14,7 +15,7 @@ namespace OnboardingSIGDB1.API.Controllers
     [ApiController]
     public class CargoController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<Cargo> _cargoRepository;
         private readonly IMapper _mapper;
         private readonly IGravarCargoService _gravarCargoService;
         private readonly IRemoverCargoService _removerService;
@@ -22,14 +23,14 @@ namespace OnboardingSIGDB1.API.Controllers
         /// <summary>
         /// Contrutor
         /// </summary>
-        /// <param name="unitOfWork"></param>
+        /// <param name="cargoRepository"></param>
         /// <param name="mapper"></param>
         /// <param name="gravarCargoService"></param>
         /// <param name="removerService"></param>
-        public CargoController(IUnitOfWork unitOfWork, IMapper mapper, IGravarCargoService gravarCargoService,
+        public CargoController(IRepository<Cargo> cargoRepository, IMapper mapper, IGravarCargoService gravarCargoService,
             IRemoverCargoService removerService)
         {
-            _unitOfWork = unitOfWork;
+            _cargoRepository = cargoRepository;
             _mapper = mapper;
             _gravarCargoService = gravarCargoService;
             _removerService = removerService;
@@ -42,7 +43,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpGet]
         public IEnumerable<CargoDTO> Get()
         {
-            var cargos = _unitOfWork.CargoRepository.GetAll();
+            var cargos = _cargoRepository.GetAll();
             var cargosDto = _mapper.Map<IEnumerable<CargoDTO>>(cargos);
             return cargosDto;
         }
@@ -55,7 +56,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var cargo = _unitOfWork.CargoRepository.Get(c => c.Id == id);
+            var cargo = _cargoRepository.Get(c => c.Id == id);
             if (cargo == null)
                 return BadRequest("Cargo não encontrado.");
 
@@ -71,10 +72,8 @@ namespace OnboardingSIGDB1.API.Controllers
         /// <returns></returns>
         [HttpPost]
         public IActionResult Post(CargoDTO dto)
-        {
-            var inseriu = _gravarCargoService.Adicionar(ref dto);
-
-            if (!inseriu)
+        {            
+            if (!_gravarCargoService.Adicionar(ref dto))
                 return BadRequest(_gravarCargoService.notificationContext.Notifications);
 
             return Created($"/api/cargo/{dto.Id}", dto);

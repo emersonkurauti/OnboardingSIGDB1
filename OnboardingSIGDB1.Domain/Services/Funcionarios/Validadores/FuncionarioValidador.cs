@@ -1,6 +1,7 @@
 ﻿using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Entitys;
+using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Utils;
 
@@ -8,13 +9,16 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios.Validadores
 {
     public class FuncionarioValidador: ValidadorBase<Funcionario>
     {
-        private IUnitOfWork _unitOfWork;
+        private IFuncionarioRepository _funcionarioRepository;
+        private IRepository<Empresa> _empresaRepository;
 
-        public FuncionarioValidador(NotificationContext notification, Funcionario funcionario, IUnitOfWork unitOfWork)
+        public FuncionarioValidador(NotificationContext notification, Funcionario funcionario, IFuncionarioRepository funcionarioRepository,
+            IRepository<Empresa> empresaRepository)
         {
             notificationContext = notification;
             entidade = funcionario;
-            _unitOfWork = unitOfWork;
+            _funcionarioRepository = funcionarioRepository;
+            _empresaRepository = empresaRepository;
         }
 
         public void ValidarInclusao()
@@ -58,7 +62,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios.Validadores
 
         private void ValidarExisteMesmoCPF(string cpf)
         {
-            if (_unitOfWork.FuncionarioRepository.Exist(f => f.Cpf == cpf))
+            if (_funcionarioRepository.Exist(f => f.Cpf == cpf))
                 notificationContext.AddNotification(Constantes.sChaveErroMesmoCPF, Constantes.sMensagemErroMesmoCPF);
         }
 
@@ -70,7 +74,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios.Validadores
 
         private void ValidarEmpresaExiste()
         {
-            if (!_unitOfWork.EmpresaRepository.Exist(e => e.Id == entidade.EmpresaId))
+            if (!_empresaRepository.Exist(e => e.Id == entidade.EmpresaId))
                 notificationContext.AddNotification(Constantes.sChaveErroEmpresaNaoLocalizadaParaVincular, Constantes.sMensagemErroEmpresaNaoLocalizadaParaVincular);
         }
     }

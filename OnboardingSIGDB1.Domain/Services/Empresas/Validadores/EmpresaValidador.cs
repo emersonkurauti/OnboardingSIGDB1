@@ -8,13 +8,13 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas.Validadores
 {
     public class EmpresaValidador : ValidadorBase<Empresa>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<Empresa> _empresaRepository;
 
-        public EmpresaValidador(NotificationContext notification, Empresa empresa, IUnitOfWork unitOfWork)
+        public EmpresaValidador(NotificationContext notification, Empresa empresa, IRepository<Empresa> empresaRepository)
         {
             notificationContext = notification;
             entidade = empresa;
-            _unitOfWork = unitOfWork;
+            _empresaRepository = empresaRepository;
         }
 
         public void ValidarInclusao()
@@ -39,7 +39,7 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas.Validadores
 
         private void ValidarExisteMesmoCNPJ(string cnpj)
         {
-            if (_unitOfWork.EmpresaRepository.Exist(e => e.Cnpj == cnpj))
+            if (_empresaRepository.Exist(e => e.Cnpj == cnpj))
                 notificationContext.AddNotification(Constantes.sChaveErroMesmoCNPJ, Constantes.sMensagemErroMesmoCNPJ);
         }
 

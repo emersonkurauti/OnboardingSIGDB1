@@ -1,8 +1,9 @@
 ﻿using OnboardingSIGDB1.Data;
+using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Domain.Interfaces.Cargos;
+using OnboardingSIGDB1.Domain.Interfaces.FuncionariosCargo;
 using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Utils;
-using System.Linq;
 
 namespace OnboardingSIGDB1.Domain.Services.Cargos
 {
@@ -10,34 +11,31 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
     {
         public NotificationContext notificationContext { get; set; }
 
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<Cargo> _cargoRepository;
+        private readonly IConsultarFuncionarioCargo _consultarFuncionarioCargo;
 
-        public RemoverCargoService(IUnitOfWork unitOfWork)
+        public RemoverCargoService(IRepository<Cargo> cargoRepository, IConsultarFuncionarioCargo consultarFuncionarioCargo)
         {
             notificationContext = new NotificationContext();
-            _unitOfWork = unitOfWork;
+            _cargoRepository = cargoRepository;
+            _consultarFuncionarioCargo = consultarFuncionarioCargo;
         }
 
         public bool Remover(int id)
         {
-            var cargo = _unitOfWork.CargoRepository.Get(c => c.Id == id);
+            var cargo = _cargoRepository.Get(c => c.Id == id);
 
             if (cargo == null)
                 notificationContext.AddNotification(Constantes.sChaveErroLocalizar, Constantes.sMensagemErroLocalizar);
 
-            if (_unitOfWork.FuncionarioCargoRepository.GetAll(fc => fc.CargoId == id).Any())
+            if (_consultarFuncionarioCargo.VerificarExisteVinculo(cargo.Id))
                 notificationContext.AddNotification(Constantes.sChaveErroCargoFuncionario, Constantes.sMensagemErroCargoFuncionario);
 
             if (notificationContext.HasNotifications)
                 return false;
 
-            _unitOfWork.CargoRepository.Delete(cargo);
-            var deletou = _unitOfWork.Commit();
-
-            if (!deletou)
-                notificationContext.AddNotification(Constantes.sChaveErroRemover, Constantes.sMensagemErroRemover);
-
-            return deletou;
+            _cargoRepository.Delete(cargo);
+            return true;
         }
     }
 }

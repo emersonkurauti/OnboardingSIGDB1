@@ -6,19 +6,19 @@ using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Domain.Interfaces.Cargos;
 using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Services.Cargos.Validadores;
-using OnboardingSIGDB1.Domain.Utils;
 
 namespace OnboardingSIGDB1.Domain.Services.Cargos
 {
     public class GravarCargoService : GravarServiceBase, IGravarCargoService
     {
+        private readonly IRepository<Cargo> _cargoRepository;
         private Cargo _cargo;
         private CargoValidador _validador;
 
-        public GravarCargoService(IUnitOfWork unitOfWork, IMapper mapper)
+        public GravarCargoService(IRepository<Cargo> cargoRepository, IMapper mapper)
         {
             notificationContext = new NotificationContext();
-            _unitOfWork = unitOfWork;
+            _cargoRepository = cargoRepository;
             _mapper = mapper;
             _validador = new CargoValidador(notificationContext, _cargo);
         }
@@ -33,20 +33,14 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
             if (notificationContext.HasNotifications)
                 return false;
 
-            _unitOfWork.CargoRepository.Add(_cargo);
-            var inseriu = _unitOfWork.Commit();
-
-            if (!inseriu)
-                notificationContext.AddNotification(Constantes.sChaveErroInclusao, Constantes.sMensagemErroInclusao);
-
+            _cargoRepository.Add(_cargo);
             dto = _mapper.Map<CargoDTO>(_cargo);
-
-            return inseriu;
+            return true;
         }
 
         public bool Alterar(int id, CargoDTO dto)
         {
-            _cargo = _unitOfWork.CargoRepository.Get(c => c.Id == id);
+            _cargo = _cargoRepository.Get(c => c.Id == id);
             _cargo.AlterarDescricao(dto.Descricao);
 
             _validador.entidade = _cargo;
@@ -55,13 +49,8 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
             if (notificationContext.HasNotifications)
                 return false;
 
-            _unitOfWork.CargoRepository.Update(_cargo);
-            var alterou = _unitOfWork.Commit();
-
-            if (!alterou)
-                notificationContext.AddNotification(Constantes.sChaveErroAlteracao, Constantes.sMensagemErroAlteracao);
-
-            return alterou;
+            _cargoRepository.Update(_cargo);
+            return true;
         }
 
     }

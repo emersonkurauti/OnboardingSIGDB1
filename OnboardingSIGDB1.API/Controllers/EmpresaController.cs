@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnboardingSIGDB1.API.Filtros;
 using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Dto;
+using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Domain.Interfaces.Empresas;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace OnboardingSIGDB1.API.Controllers
     [ApiController]
     public class EmpresaController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<Empresa> _empresaRepository;
         private readonly IMapper _mapper;
         private readonly IGravarEmpresaService _gravarEmpresaService;
         private readonly IRemoverEmpresaService _removerEmpresaService;
@@ -25,14 +26,14 @@ namespace OnboardingSIGDB1.API.Controllers
         /// <summary>
         /// Construtor
         /// </summary>
-        /// <param name="unitOfWork"></param>
+        /// <param name="empresaRepository"></param>
         /// <param name="mapper"></param>
         /// <param name="gravarEmpresaService"></param>
         /// <param name="removerEmpresaService"></param>
-        public EmpresaController(IUnitOfWork unitOfWork, IMapper mapper, IGravarEmpresaService gravarEmpresaService,
+        public EmpresaController(IRepository<Empresa> empresaRepository, IMapper mapper, IGravarEmpresaService gravarEmpresaService,
             IRemoverEmpresaService removerEmpresaService)
         {
-            _unitOfWork = unitOfWork;
+            _empresaRepository = empresaRepository;
             _mapper = mapper;
             _gravarEmpresaService = gravarEmpresaService;
             _removerEmpresaService = removerEmpresaService;
@@ -45,7 +46,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpGet]
         public IEnumerable<EmpresaDTO> Get()
         {
-            var empresas = _unitOfWork.EmpresaRepository.GetAll();
+            var empresas = _empresaRepository.GetAll();
             var empresasDto = _mapper.Map<IEnumerable<EmpresaDTO>>(empresas);
 
             return empresasDto;
@@ -59,7 +60,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var empresa = _unitOfWork.EmpresaRepository.Get(e => e.Id == id);
+            var empresa = _empresaRepository.Get(e => e.Id == id);
 
             if (empresa == null)
                 return NotFound("Empresa não encontrada.");
@@ -76,7 +77,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpGet("pesquisar")]
         public IEnumerable<EmpresaDTO> Get([FromQuery] FiltrosEmpresa filtro)
         {
-            var empresas = _unitOfWork.EmpresaRepository.GetAll();
+            var empresas = _empresaRepository.GetAll();
             var empresasDto = _mapper.Map<IEnumerable<EmpresaDTO>>(empresas);
 
             if (filtro.Nome != null)
@@ -105,9 +106,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] EmpresaDTO dto)
         {
-            var inseriu = _gravarEmpresaService.Adicionar(ref dto);
-
-            if (!inseriu)
+            if (!_gravarEmpresaService.Adicionar(ref dto))
                 return BadRequest(_gravarEmpresaService.notificationContext.Notifications);
 
             return Created($"/api/empresa/{dto.Id}", dto);

@@ -17,6 +17,9 @@ using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 using OnboardingSIGDB1.Domain.Interfaces.FuncionariosCargo;
 using OnboardingSIGDB1.Domain.Services.FuncionariosCargo;
 using OnboardingSIGDB1.Domain.AutoMapper;
+using System.Linq;
+using OnboardingSIGDB1.Domain.Notifications;
+using OnboardingSIGDB1.Domain.Entitys;
 
 namespace OnboardingSIGDB1.API
 {
@@ -52,6 +55,15 @@ namespace OnboardingSIGDB1.API
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<IRepository<Cargo>>();
+            services.AddScoped<IRepository<Empresa>>();
+            services.AddScoped<IFuncionarioRepository>();
+            services.AddScoped<IRepository<FuncionarioCargo>>();
+
+            services.AddScoped<IConsultarFuncionarioCargo>();
+            services.AddScoped<IConsultaFuncionario>();
+
             services.AddScoped<IGravarEmpresaService, GravarEmpresaService>();
             services.AddScoped<IRemoverEmpresaService, RemoverEmpresaService>();
             services.AddScoped<IGravarCargoService, GravarCargoService>();
@@ -87,6 +99,21 @@ namespace OnboardingSIGDB1.API
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseMvc();
+            app.Use(async(context, next) => {
+                await next.Invoke();
+                string method = context.Request.Method;
+                var allowedMethodsToCommit = new string[] { "POST", "PUT", "DELETE" };
+
+                if (!allowedMethodsToCommit.Contains(method))
+                    return;
+
+                var notificationContext = (NotificationContext)context.RequestServices.GetService(typeof(NotificationContext));
+                if (!notificationContext.HasNotifications)
+                {
+                    var unitOfWork = (IUnitOfWork)context.RequestServices.GetService(typeof(IUnitOfWork));
+                    unitOfWork.Commit();
+                }
+            });
         }
     }
 }

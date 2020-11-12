@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using OnboardingSIGDB1.API.Filtros;
-using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 
@@ -17,7 +16,7 @@ namespace OnboardingSIGDB1.API.Controllers
     [ApiController]
     public class FuncionarioController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IFuncionarioRepository _funcionarioRepository;
         private readonly IMapper _mapper;
         private readonly IGravarFuncionarioService _gravarFuncionarioService;
         private readonly IRemoverFuncionarioService _removerService;
@@ -25,14 +24,14 @@ namespace OnboardingSIGDB1.API.Controllers
         /// <summary>
         /// Construtor
         /// </summary>
-        /// <param name="unitOfWork"></param>
+        /// <param name="funcionarioRepository"></param>
         /// <param name="mapper"></param>
         /// <param name="gravarFuncionarioService"></param>
         /// <param name="removerService"></param>
-        public FuncionarioController(IUnitOfWork unitOfWork, IMapper mapper, IGravarFuncionarioService gravarFuncionarioService,
+        public FuncionarioController(IFuncionarioRepository funcionarioRepository, IMapper mapper, IGravarFuncionarioService gravarFuncionarioService,
             IRemoverFuncionarioService removerService)
         {
-            _unitOfWork = unitOfWork;
+            _funcionarioRepository = funcionarioRepository;
             _mapper = mapper;
             _gravarFuncionarioService = gravarFuncionarioService;
             _removerService = removerService;
@@ -45,7 +44,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpGet]
         public IList<FuncionarioConsultaDTO> Get()
         {
-            return _unitOfWork.FuncionarioRepository.GetAllFuncionarios();
+            return _funcionarioRepository.GetAllFuncionarios();
         }
 
         /// <summary>
@@ -56,7 +55,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var funcionario = _unitOfWork.FuncionarioRepository.GetFuncionario(id);
+            var funcionario = _funcionarioRepository.GetFuncionario(id);
             if (funcionario == null)
                 return BadRequest("Funcionário não encontrado.");
 
@@ -71,7 +70,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpGet("pesquisar")]
         public IEnumerable<FuncionarioConsultaDTO> Get([FromQuery] FiltrosFuncionario filtro)
         {
-            var funcionarios = _unitOfWork.FuncionarioRepository.GetAllFuncionarios();
+            var funcionarios = _funcionarioRepository.GetAllFuncionarios();
             var funcionariosDto = _mapper.Map<IEnumerable<FuncionarioConsultaDTO>>(funcionarios);
 
             if (filtro.Nome != null)
@@ -100,9 +99,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpPost]
         public IActionResult Post(FuncionarioDTO dto)
         {
-            var inseriu = _gravarFuncionarioService.Adicionar(ref dto);
-
-            if (!inseriu)
+            if (!_gravarFuncionarioService.Adicionar(ref dto))
                 return BadRequest(_gravarFuncionarioService.notificationContext.Notifications);
 
             return Created($"/api/funcionario/{dto.Id}", dto);

@@ -6,21 +6,21 @@ using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Domain.Interfaces.Empresas;
 using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Services.Empresas.Validadores;
-using OnboardingSIGDB1.Domain.Utils;
 
 namespace OnboardingSIGDB1.Domain.Services.Empresas
 {
     public class GravarEmpresaService : GravarServiceBase, IGravarEmpresaService
     {
+        private readonly IRepository<Empresa> _empreaRepository;
         private Empresa _empresa;
         private EmpresaValidador _validador;
 
-        public GravarEmpresaService(IMapper mapper, IUnitOfWork unitOfWork)
+        public GravarEmpresaService(IMapper mapper, IRepository<Empresa> empreaRepository)
         {
             _mapper = mapper;
-            _unitOfWork = unitOfWork;
+            _empreaRepository = empreaRepository;
             notificationContext = new NotificationContext();
-            _validador = new EmpresaValidador(notificationContext, _empresa, _unitOfWork);
+            _validador = new EmpresaValidador(notificationContext, _empresa, _empreaRepository);
         }
 
         public bool Adicionar(ref EmpresaDTO dto)
@@ -34,20 +34,13 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
             if (notificationContext.HasNotifications)
                 return false;
 
-            _unitOfWork.EmpresaRepository.Add(_empresa);
-            var inseriu = _unitOfWork.Commit();
-
-            if (!inseriu)
-                notificationContext.AddNotification(Constantes.sChaveErroInclusao, Constantes.sMensagemErroInclusao);
-
-            dto = _mapper.Map<EmpresaDTO>(_empresa);
-
-            return inseriu;
+            _empreaRepository.Add(_empresa);
+            return true;
         }
 
         public bool Alterar(int id, EmpresaDTO dto)
         {
-            _empresa = _unitOfWork.EmpresaRepository.Get(e => e.Id == id);
+            _empresa = _empreaRepository.Get(e => e.Id == id);
             _empresa.AlterarNome(dto.Nome);
             _empresa.AlterarCnpj(dto.Cnpj);
             _empresa.AlterarDataFundacao(dto.DataFundacao);
@@ -58,13 +51,8 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
             if (notificationContext.HasNotifications)
                 return false;
 
-            _unitOfWork.EmpresaRepository.Update(_empresa);
-            var alterou = _unitOfWork.Commit();
-
-            if (!alterou)
-                notificationContext.AddNotification(Constantes.sChaveErroAlteracao, Constantes.sMensagemErroAlteracao);
-
-            return alterou;
+            _empreaRepository.Update(_empresa);
+            return true;
         }
     }
 }
