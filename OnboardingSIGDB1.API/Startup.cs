@@ -20,6 +20,8 @@ using OnboardingSIGDB1.Domain.AutoMapper;
 using System.Linq;
 using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Entitys;
+using OnboardingSIGDB1.Data.Repositories;
+using OnboardingSIGDB1.Domain.Services.FuncionariosCargos;
 
 namespace OnboardingSIGDB1.API
 {
@@ -56,13 +58,13 @@ namespace OnboardingSIGDB1.API
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddScoped<IRepository<Cargo>>();
-            services.AddScoped<IRepository<Empresa>>();
-            services.AddScoped<IFuncionarioRepository>();
-            services.AddScoped<IRepository<FuncionarioCargo>>();
+            services.AddScoped<IRepository<Cargo>, Repository<Cargo>>();
+            services.AddScoped<IRepository<Empresa>, Repository<Empresa>>();
+            services.AddScoped<IRepository<FuncionarioCargo>, Repository<FuncionarioCargo>>();
+            services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
 
-            services.AddScoped<IConsultarFuncionarioCargo>();
-            services.AddScoped<IConsultaFuncionario>();
+            services.AddScoped<IConsultarFuncionarioCargo, ConsultarFuncionarioCargo>();
+            services.AddScoped<IConsultaFuncionario, ConsultaFuncionario>();
 
             services.AddScoped<IGravarEmpresaService, GravarEmpresaService>();
             services.AddScoped<IRemoverEmpresaService, RemoverEmpresaService>();
