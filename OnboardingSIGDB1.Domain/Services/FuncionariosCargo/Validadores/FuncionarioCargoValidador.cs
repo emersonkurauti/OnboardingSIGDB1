@@ -5,7 +5,7 @@ using OnboardingSIGDB1.Domain.Interfaces;
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 using OnboardingSIGDB1.Domain.Utils;
 
-namespace OnboardingSIGDB1.Domain.Services.FuncionariosCargo.Validador
+namespace OnboardingSIGDB1.Domain.Services.FuncionariosCargo.Validadores
 {
     public class FuncionarioCargoValidador: ValidadorBase<FuncionarioCargo>
     {
