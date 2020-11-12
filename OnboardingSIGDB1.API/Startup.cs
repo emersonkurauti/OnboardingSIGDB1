@@ -96,7 +96,7 @@ namespace OnboardingSIGDB1.API
             app.Use(async (context, next) => {
                 await next.Invoke();
                 string method = context.Request.Method;
-                var allowedMethodsToCommit = new string[] { "POST", "PUT", "DELETE" };
+                var allowedMethodsToCommit = new string[] { "POST", "PUT", "DELETE", "PATCH" };
 
                 if (!allowedMethodsToCommit.Contains(method))
                     return;

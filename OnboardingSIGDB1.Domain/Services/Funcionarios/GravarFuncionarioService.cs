@@ -58,10 +58,11 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
         public bool VincularEmpresa(int id, FuncionarioEmpresaDTO dto)
         {
             _funcionario = _funcionarioRepository.Get(f => f.Id == id);
-            _funcionario.AlterarEmpresaId(dto.EmpresaId);
-
+            
             _validador.entidade = _funcionario;
-            _validador.ValidarVinculacaoEmpresa();
+            _validador.ValidarVinculacaoEmpresa(dto.EmpresaId);
+
+            _funcionario.AlterarEmpresaId(dto.EmpresaId);
 
             if (notificationContext.HasNotifications)
                 return false;

@@ -35,11 +35,11 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios.Validadores
             ValidarEntidade();
         }
 
-        public void ValidarVinculacaoEmpresa()
+        public void ValidarVinculacaoEmpresa(int empresaId)
         {
             ValidarExiste();
             ValidarEmpresaVinculada();
-            ValidarEmpresaExiste();
+            ValidarEmpresaExiste(empresaId);
         }
 
         private void ValidarCPF(string cpf)
@@ -72,9 +72,9 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios.Validadores
                 notificationContext.AddNotification(Constantes.sChaveErroEmpresaVinculada, Constantes.sMensagemErroEmpresaVinculada);
         }
 
-        private void ValidarEmpresaExiste()
+        private void ValidarEmpresaExiste(int empresaId)
         {
-            if (!_empresaRepository.Exist(e => e.Id == entidade.EmpresaId))
+            if (!_empresaRepository.Exist(e => e.Id == empresaId))
                 notificationContext.AddNotification(Constantes.sChaveErroEmpresaNaoLocalizadaParaVincular, Constantes.sMensagemErroEmpresaNaoLocalizadaParaVincular);
         }
     }
