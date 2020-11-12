@@ -1,7 +1,7 @@
 ﻿using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Entitys;
-using OnboardingSIGDB1.Domain.Notifications;
+using OnboardingSIGDB1.Domain.Interfaces;
 using OnboardingSIGDB1.Domain.Utils;
 
 namespace OnboardingSIGDB1.Domain.Services.Empresas.Validadores
@@ -10,7 +10,7 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas.Validadores
     {
         private readonly IRepository<Empresa> _empresaRepository;
 
-        public EmpresaValidador(NotificationContext notification, Empresa empresa, IRepository<Empresa> empresaRepository)
+        public EmpresaValidador(INotificationContext notification, Empresa empresa, IRepository<Empresa> empresaRepository)
         {
             notificationContext = notification;
             entidade = empresa;

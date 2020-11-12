@@ -22,6 +22,7 @@ using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Entitys;
 using OnboardingSIGDB1.Data.Repositories;
 using OnboardingSIGDB1.Domain.Services.FuncionariosCargos;
+using OnboardingSIGDB1.Domain.Interfaces;
 
 namespace OnboardingSIGDB1.API
 {
@@ -74,6 +75,8 @@ namespace OnboardingSIGDB1.API
             services.AddScoped<IRemoverFuncionarioService, RemoverFuncionarioService>();
             services.AddScoped<IGravarFuncionarioCargoService, GravarFuncionarioCargoService>();
 
+            services.AddScoped<INotificationContext, NotificationContext>();
+
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1",
                     new OpenApiInfo
@@ -90,6 +93,21 @@ namespace OnboardingSIGDB1.API
         /// </summary>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.Use(async (context, next) => {
+                await next.Invoke();
+                string method = context.Request.Method;
+                var allowedMethodsToCommit = new string[] { "POST", "PUT", "DELETE" };
+
+                if (!allowedMethodsToCommit.Contains(method))
+                    return;
+
+                var notificationContext = context.RequestServices.GetService<INotificationContext>();
+                if (!notificationContext.HasNotifications)
+                {
+                    var unitOfWork = (IUnitOfWork)context.RequestServices.GetService(typeof(IUnitOfWork));
+                    unitOfWork.Commit();
+                }
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -101,21 +119,6 @@ namespace OnboardingSIGDB1.API
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseMvc();
-            app.Use(async(context, next) => {
-                await next.Invoke();
-                string method = context.Request.Method;
-                var allowedMethodsToCommit = new string[] { "POST", "PUT", "DELETE" };
-
-                if (!allowedMethodsToCommit.Contains(method))
-                    return;
-
-                var notificationContext = (NotificationContext)context.RequestServices.GetService(typeof(NotificationContext));
-                if (!notificationContext.HasNotifications)
-                {
-                    var unitOfWork = (IUnitOfWork)context.RequestServices.GetService(typeof(IUnitOfWork));
-                    unitOfWork.Commit();
-                }
-            });
         }
     }
 }

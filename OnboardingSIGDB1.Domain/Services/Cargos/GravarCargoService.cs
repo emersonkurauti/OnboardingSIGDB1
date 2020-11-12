@@ -3,8 +3,8 @@ using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
+using OnboardingSIGDB1.Domain.Interfaces;
 using OnboardingSIGDB1.Domain.Interfaces.Cargos;
-using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Services.Cargos.Validadores;
 
 namespace OnboardingSIGDB1.Domain.Services.Cargos
@@ -15,9 +15,9 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
         private Cargo _cargo;
         private CargoValidador _validador;
 
-        public GravarCargoService(IRepository<Cargo> cargoRepository, IMapper mapper)
+        public GravarCargoService(IRepository<Cargo> cargoRepository, IMapper mapper, INotificationContext notification)
         {
-            notificationContext = new NotificationContext();
+            notificationContext = notification;
             _cargoRepository = cargoRepository;
             _mapper = mapper;
             _validador = new CargoValidador(notificationContext, _cargo);

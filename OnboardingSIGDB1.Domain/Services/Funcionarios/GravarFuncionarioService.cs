@@ -3,8 +3,8 @@ using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
+using OnboardingSIGDB1.Domain.Interfaces;
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
-using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Services.Funcionarios.Validadores;
 
 namespace OnboardingSIGDB1.Domain.Services.Funcionarios
@@ -15,11 +15,11 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
         private Funcionario _funcionario;
         private FuncionarioValidador _validador;
 
-        public GravarFuncionarioService(IMapper mapper, IFuncionarioRepository funcionarioRepository, IRepository<Empresa> empresaRepository)
+        public GravarFuncionarioService(IMapper mapper, IFuncionarioRepository funcionarioRepository, IRepository<Empresa> empresaRepository, INotificationContext notification)
         {
             _mapper = mapper;
             _funcionarioRepository = funcionarioRepository;
-            notificationContext = new NotificationContext();
+            notificationContext = notification;
             _validador = new FuncionarioValidador(notificationContext, _funcionario, _funcionarioRepository, empresaRepository);
         }
 

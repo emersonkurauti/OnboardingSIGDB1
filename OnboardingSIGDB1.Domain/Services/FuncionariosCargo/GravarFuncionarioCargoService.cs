@@ -3,8 +3,8 @@ using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
+using OnboardingSIGDB1.Domain.Interfaces;
 using OnboardingSIGDB1.Domain.Interfaces.FuncionariosCargo;
-using OnboardingSIGDB1.Domain.Notifications;
 
 namespace OnboardingSIGDB1.Domain.Services.FuncionariosCargo
 {
@@ -13,11 +13,11 @@ namespace OnboardingSIGDB1.Domain.Services.FuncionariosCargo
         private readonly IRepository<FuncionarioCargo> _funcionarioCargoRepository;
         private FuncionarioCargo _funcionarioCargo;
 
-        public GravarFuncionarioCargoService(IRepository<FuncionarioCargo> funcionarioCargoRepository, IMapper mapper)
+        public GravarFuncionarioCargoService(IRepository<FuncionarioCargo> funcionarioCargoRepository, IMapper mapper, INotificationContext notification)
         {
             _funcionarioCargoRepository = funcionarioCargoRepository;
             _mapper = mapper;
-            notificationContext = new NotificationContext();
+            notificationContext = notification;
         }
 
         public bool Adicionar(FuncionarioCargoDTO dto)

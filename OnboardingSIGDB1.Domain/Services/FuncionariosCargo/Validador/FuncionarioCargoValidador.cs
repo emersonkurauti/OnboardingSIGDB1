@@ -1,8 +1,8 @@
 ﻿using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Entitys;
+using OnboardingSIGDB1.Domain.Interfaces;
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
-using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Utils;
 
 namespace OnboardingSIGDB1.Domain.Services.FuncionariosCargo.Validador
@@ -12,7 +12,7 @@ namespace OnboardingSIGDB1.Domain.Services.FuncionariosCargo.Validador
         private IRepository<FuncionarioCargo> _funcionarioCargoRepository;
         private IFuncionarioRepository _funcionarioRepository;
 
-        public FuncionarioCargoValidador(NotificationContext notification, FuncionarioCargo funcionarioCargo, 
+        public FuncionarioCargoValidador(INotificationContext notification, FuncionarioCargo funcionarioCargo, 
             IRepository<FuncionarioCargo> funcionarioCargoRepository,
             IFuncionarioRepository funcionarioRepository)
         {

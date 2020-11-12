@@ -1,25 +1,24 @@
 ﻿using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Entitys;
+using OnboardingSIGDB1.Domain.Interfaces;
 using OnboardingSIGDB1.Domain.Interfaces.Empresas;
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
-using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Utils;
-using System.Linq;
 
 namespace OnboardingSIGDB1.Domain.Services.Empresas
 {
     public class RemoverEmpresaService : IRemoverEmpresaService
     {
-        public NotificationContext notificationContext { get; set; }
+        public INotificationContext notificationContext { get; set; }
 
         private readonly IRepository<Empresa> _empreaRepository;
         private readonly IConsultaFuncionario _consultaFuncionario;
 
-        public RemoverEmpresaService(IRepository<Empresa> empreaRepository, IConsultaFuncionario consultaFuncionario)
+        public RemoverEmpresaService(IRepository<Empresa> empreaRepository, IConsultaFuncionario consultaFuncionario, INotificationContext notification)
         {
             _empreaRepository = empreaRepository;
             _consultaFuncionario = consultaFuncionario;
-            notificationContext = new NotificationContext();
+            notificationContext = notification;
         }
 
         public bool Remover(int id)

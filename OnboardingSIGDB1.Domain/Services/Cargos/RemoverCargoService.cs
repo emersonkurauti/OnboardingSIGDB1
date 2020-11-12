@@ -1,5 +1,6 @@
 ﻿using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Entitys;
+using OnboardingSIGDB1.Domain.Interfaces;
 using OnboardingSIGDB1.Domain.Interfaces.Cargos;
 using OnboardingSIGDB1.Domain.Interfaces.FuncionariosCargo;
 using OnboardingSIGDB1.Domain.Notifications;
@@ -9,14 +10,13 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
 {
     public class RemoverCargoService : IRemoverCargoService
     {
-        public NotificationContext notificationContext { get; set; }
-
+        public INotificationContext notificationContext { get; set; }
         private readonly IRepository<Cargo> _cargoRepository;
         private readonly IConsultarFuncionarioCargo _consultarFuncionarioCargo;
 
-        public RemoverCargoService(IRepository<Cargo> cargoRepository, IConsultarFuncionarioCargo consultarFuncionarioCargo)
+        public RemoverCargoService(IRepository<Cargo> cargoRepository, IConsultarFuncionarioCargo consultarFuncionarioCargo, INotificationContext notification)
         {
-            notificationContext = new NotificationContext();
+            notificationContext = notification;
             _cargoRepository = cargoRepository;
             _consultarFuncionarioCargo = consultarFuncionarioCargo;
         }

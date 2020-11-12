@@ -11,9 +11,9 @@ namespace OnboardingSIGDB1.Data
             _dataContext = dataContext;
         }
 
-        public bool Commit()
+        public void Commit()
         {
-            return _dataContext.SaveChanges() != 0;
+            _dataContext.SaveChanges();
         }
 
         private bool disposed = false;

@@ -3,8 +3,8 @@ using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
+using OnboardingSIGDB1.Domain.Interfaces;
 using OnboardingSIGDB1.Domain.Interfaces.Empresas;
-using OnboardingSIGDB1.Domain.Notifications;
 using OnboardingSIGDB1.Domain.Services.Empresas.Validadores;
 
 namespace OnboardingSIGDB1.Domain.Services.Empresas
@@ -15,11 +15,11 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
         private Empresa _empresa;
         private EmpresaValidador _validador;
 
-        public GravarEmpresaService(IMapper mapper, IRepository<Empresa> empreaRepository)
+        public GravarEmpresaService(IMapper mapper, IRepository<Empresa> empreaRepository, INotificationContext notification)
         {
             _mapper = mapper;
             _empreaRepository = empreaRepository;
-            notificationContext = new NotificationContext();
+            notificationContext = notification;
             _validador = new EmpresaValidador(notificationContext, _empresa, _empreaRepository);
         }
 

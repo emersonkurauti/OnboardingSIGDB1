@@ -1,13 +1,13 @@
 ﻿using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Entitys;
-using OnboardingSIGDB1.Domain.Notifications;
+using OnboardingSIGDB1.Domain.Interfaces;
 using OnboardingSIGDB1.Domain.Utils;
 
 namespace OnboardingSIGDB1.Domain.Services.Cargos.Validadores
 {
     public class CargoValidador : ValidadorBase<Cargo>
     {
-        public CargoValidador(NotificationContext notification, Cargo cargo) 
+        public CargoValidador(INotificationContext notification, Cargo cargo) 
         {
             notificationContext = notification;
             entidade = cargo;

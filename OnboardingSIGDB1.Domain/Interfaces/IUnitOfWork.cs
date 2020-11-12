@@ -5,6 +5,6 @@ namespace OnboardingSIGDB1.Data
 {
     public interface IUnitOfWork
     {
-        bool Commit();
+        void Commit();
     }
 }
