@@ -1,6 +1,4 @@
-﻿using OnboardingSIGDB1.Data;
-using OnboardingSIGDB1.Domain.Entitys;
-using OnboardingSIGDB1.Domain.Interfaces;
+﻿using OnboardingSIGDB1.Domain.Interfaces;
 using OnboardingSIGDB1.Domain.Interfaces.Funcionarios;
 using OnboardingSIGDB1.Domain.Utils;
 
@@ -10,9 +8,9 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
     {
         public INotificationContext notificationContext { get; set; }
 
-        private readonly IRepository<Funcionario> _funcionarioRepository;
+        private readonly IFuncionarioRepository _funcionarioRepository;
 
-        public RemoverFuncionarioService(IRepository<Funcionario> funcionarioRepository, INotificationContext notification)
+        public RemoverFuncionarioService(IFuncionarioRepository funcionarioRepository, INotificationContext notification)
         {
             _funcionarioRepository = funcionarioRepository;
             notificationContext = notification;

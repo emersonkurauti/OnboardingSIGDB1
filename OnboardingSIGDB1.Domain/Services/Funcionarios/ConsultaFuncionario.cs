@@ -7,9 +7,9 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
 {
     public class ConsultaFuncionario : IConsultaFuncionario
     {
-        private readonly IRepository<Funcionario> _funcionarioRepository;
+        private readonly IFuncionarioRepository _funcionarioRepository;
 
-        public ConsultaFuncionario(IRepository<Funcionario> funcionarioRepository)
+        public ConsultaFuncionario(IFuncionarioRepository funcionarioRepository)
         {
             _funcionarioRepository = funcionarioRepository;
         }
