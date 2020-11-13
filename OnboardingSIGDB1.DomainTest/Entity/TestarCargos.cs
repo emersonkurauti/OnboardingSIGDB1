@@ -1,4 +1,5 @@
 ﻿using OnboardingSIGDB1.Domain.Entitys;
+using OnboardingSIGDB1.DomainTest.Builders;
 using Xunit;
 
 namespace OnboardingSIGDB1.DomainTest.Entity
@@ -11,14 +12,14 @@ namespace OnboardingSIGDB1.DomainTest.Entity
         [InlineData("Descrição de cargo com mais de 250 caracteres ................................................................................................................................................................................................................")]
         public void TestarCriacaoCargoDescricaoInvalida(string descricao)
         {
-            Cargo cargo = new Cargo(descricao);
+            Cargo cargo = CargoBuilder.Novo().ComDescricao(descricao).Build();
             Assert.False(cargo.Validar());
         }
 
         [Fact]
         public void TestarCriacaoCargoDescricaoValida()
         {
-            Cargo cargo = new Cargo("Desenvolvedor");
+            Cargo cargo = CargoBuilder.Novo().Build();
             Assert.True(cargo.Validar());
         }
     }
