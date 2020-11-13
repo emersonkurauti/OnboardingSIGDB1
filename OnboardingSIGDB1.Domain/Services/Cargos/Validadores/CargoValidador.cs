@@ -44,7 +44,7 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos.Validadores
 
         private void ValidarExisteMesmaDescricao()
         {
-            if (entidade != null && _cargoRepository.Exist(c => c.Descricao == entidade.Descricao))
+            if (entidade != null && _cargoRepository.Exist(c => c.Descricao == entidade.Descricao && c.Id != entidade.Id))
                 notificationContext.AddNotification(Constantes.sChaveErroCargoMesmaDescricao, Constantes.sMensagemErroCargoMesmaDescricao);
         }
     }
