@@ -1,10 +1,7 @@
 ﻿using OnboardingSIGDB1.Domain.Entitys;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
-namespace OnboardingSIGDB1.DomainTest
+namespace OnboardingSIGDB1.DomainTest.Entity
 {
     public class TestarCargos
     {
@@ -14,16 +11,14 @@ namespace OnboardingSIGDB1.DomainTest
         [InlineData("Descrição de cargo com mais de 250 caracteres ................................................................................................................................................................................................................")]
         public void TestarCriacaoCargoDescricaoInvalida(string descricao)
         {
-            Cargo cargo = new Cargo();
-            cargo.Descricao = descricao;
+            Cargo cargo = new Cargo(descricao);
             Assert.False(cargo.Validar());
         }
 
         [Fact]
         public void TestarCriacaoCargoDescricaoValida()
         {
-            Cargo cargo = new Cargo();
-            cargo.Descricao = "Desenvolvedor";
+            Cargo cargo = new Cargo("Desenvolvedor");
             Assert.True(cargo.Validar());
         }
     }

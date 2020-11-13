@@ -1,10 +1,7 @@
 ﻿using OnboardingSIGDB1.Domain.Utils;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
-namespace OnboardingSIGDB1.DomainTest
+namespace OnboardingSIGDB1.DomainTest.Utils
 {
     public class TestarValidadoresDocumentos
     {
