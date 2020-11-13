@@ -30,5 +30,7 @@
         public const string sMensagemErroCargoFuncionario = "Cargo possui fuincionários vinculados.";
         public const string sChaveErroFuncionarioEmpresa = "ErroFuncionarioEmpresa";
         public const string sMensagemErroFuncionarioEmpresa = "Empresa possui funcionários vinculados";
+        public const string sChaveErroCargoMesmaDescricao = "ErroCargoMesmaDescricao";
+        public const string sMensagemErroCargoMesmaDescricao = "Existe um cargo com a mesma descrição informada.";
     }
 }

@@ -18,7 +18,7 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
         {
             notificationContext = notification;
             _cargoRepository = cargoRepository;
-            _validador = new CargoValidador(notificationContext, _cargo);
+            _validador = new CargoValidador(notificationContext, _cargo, _cargoRepository);
         }
 
         public bool Adicionar(CargoDTO dto)
