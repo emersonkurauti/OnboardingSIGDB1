@@ -99,7 +99,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpPost]
         public IActionResult Post(FuncionarioDTO dto)
         {
-            if (!_gravarFuncionarioService.Adicionar(ref dto))
+            if (!_gravarFuncionarioService.Adicionar(dto))
                 return BadRequest(_gravarFuncionarioService.notificationContext.Notifications);
 
             return Created($"/api/funcionario/{dto.Id}", dto);

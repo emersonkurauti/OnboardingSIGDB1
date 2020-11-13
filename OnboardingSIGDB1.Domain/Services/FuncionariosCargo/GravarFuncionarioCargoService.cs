@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using OnboardingSIGDB1.Data;
+﻿using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;

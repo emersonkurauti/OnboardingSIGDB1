@@ -21,7 +21,7 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
             _validador = new FuncionarioValidador(notificationContext, _funcionario, _funcionarioRepository, empresaRepository);
         }
 
-        public bool Adicionar(ref FuncionarioDTO dto)
+        public bool Adicionar(FuncionarioDTO dto)
         {
             _funcionario = new Funcionario(dto.Nome, dto.Cpf);
             _funcionario.AlterarDataContratacao(dto.DataContratacao);

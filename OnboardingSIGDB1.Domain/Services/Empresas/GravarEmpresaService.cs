@@ -21,7 +21,7 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
             _validador = new EmpresaValidador(notificationContext, _empresa, _empreaRepository);
         }
 
-        public bool Adicionar(ref EmpresaDTO dto)
+        public bool Adicionar(EmpresaDTO dto)
         {
             _empresa = new Empresa(dto.Nome, dto.Cnpj);
             _empresa.AlterarDataFundacao(dto.DataFundacao);

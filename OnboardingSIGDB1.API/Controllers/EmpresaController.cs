@@ -106,7 +106,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] EmpresaDTO dto)
         {
-            if (!_gravarEmpresaService.Adicionar(ref dto))
+            if (!_gravarEmpresaService.Adicionar(dto))
                 return BadRequest(_gravarEmpresaService.notificationContext.Notifications);
 
             return Created($"/api/empresa/{dto.Id}", dto);

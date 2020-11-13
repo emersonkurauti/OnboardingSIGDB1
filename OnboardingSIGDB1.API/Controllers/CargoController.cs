@@ -73,7 +73,7 @@ namespace OnboardingSIGDB1.API.Controllers
         [HttpPost]
         public IActionResult Post(CargoDTO dto)
         {            
-            if (!_gravarCargoService.Adicionar(ref dto))
+            if (!_gravarCargoService.Adicionar(dto))
                 return BadRequest(_gravarCargoService.notificationContext.Notifications);
 
             return Created($"/api/cargo/{dto.Id}", dto);
