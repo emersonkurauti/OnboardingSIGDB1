@@ -16,11 +16,10 @@ namespace OnboardingSIGDB1.Domain.Services.FuncionariosCargo
         private FuncionarioCargo _funcionarioCargo;
         private FuncionarioCargoValidador _validador;
 
-        public GravarFuncionarioCargoService(IRepository<FuncionarioCargo> funcionarioCargoRepository, IMapper mapper, INotificationContext notification,
+        public GravarFuncionarioCargoService(IRepository<FuncionarioCargo> funcionarioCargoRepository, INotificationContext notification,
             IFuncionarioRepository funcionarioRepository)
         {
             _funcionarioCargoRepository = funcionarioCargoRepository;
-            _mapper = mapper;
             notificationContext = notification;
             _validador = new FuncionarioCargoValidador(notificationContext, _funcionarioCargo, funcionarioCargoRepository, funcionarioRepository);
         }
