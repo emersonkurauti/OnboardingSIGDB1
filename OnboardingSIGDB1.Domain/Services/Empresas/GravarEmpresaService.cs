@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using OnboardingSIGDB1.Data;
+﻿using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
@@ -15,9 +14,8 @@ namespace OnboardingSIGDB1.Domain.Services.Empresas
         private Empresa _empresa;
         private EmpresaValidador _validador;
 
-        public GravarEmpresaService(IMapper mapper, IRepository<Empresa> empreaRepository, INotificationContext notification)
+        public GravarEmpresaService(IRepository<Empresa> empreaRepository, INotificationContext notification)
         {
-            _mapper = mapper;
             _empreaRepository = empreaRepository;
             notificationContext = notification;
             _validador = new EmpresaValidador(notificationContext, _empresa, _empreaRepository);

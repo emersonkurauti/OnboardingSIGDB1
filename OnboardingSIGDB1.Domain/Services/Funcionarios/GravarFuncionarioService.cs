@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using OnboardingSIGDB1.Data;
+﻿using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
@@ -15,9 +14,8 @@ namespace OnboardingSIGDB1.Domain.Services.Funcionarios
         private Funcionario _funcionario;
         private FuncionarioValidador _validador;
 
-        public GravarFuncionarioService(IMapper mapper, IFuncionarioRepository funcionarioRepository, IRepository<Empresa> empresaRepository, INotificationContext notification)
+        public GravarFuncionarioService(IFuncionarioRepository funcionarioRepository, IRepository<Empresa> empresaRepository, INotificationContext notification)
         {
-            _mapper = mapper;
             _funcionarioRepository = funcionarioRepository;
             notificationContext = notification;
             _validador = new FuncionarioValidador(notificationContext, _funcionario, _funcionarioRepository, empresaRepository);

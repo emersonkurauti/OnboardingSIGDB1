@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using OnboardingSIGDB1.Data;
+﻿using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Base;
 using OnboardingSIGDB1.Domain.Dto;
 using OnboardingSIGDB1.Domain.Entitys;
@@ -15,11 +14,10 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
         private Cargo _cargo;
         private CargoValidador _validador;
 
-        public GravarCargoService(IRepository<Cargo> cargoRepository, IMapper mapper, INotificationContext notification)
+        public GravarCargoService(IRepository<Cargo> cargoRepository, INotificationContext notification)
         {
             notificationContext = notification;
             _cargoRepository = cargoRepository;
-            _mapper = mapper;
             _validador = new CargoValidador(notificationContext, _cargo);
         }
 
@@ -34,7 +32,6 @@ namespace OnboardingSIGDB1.Domain.Services.Cargos
                 return false;
 
             _cargoRepository.Add(_cargo);
-            dto = _mapper.Map<CargoDTO>(_cargo);
             return true;
         }
 

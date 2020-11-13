@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using OnboardingSIGDB1.Data;
+﻿using OnboardingSIGDB1.Data;
 using OnboardingSIGDB1.Domain.Interfaces;
 
 namespace OnboardingSIGDB1.Domain.Base
@@ -8,6 +7,5 @@ namespace OnboardingSIGDB1.Domain.Base
     {
         public INotificationContext notificationContext { get; set; }
         protected IUnitOfWork _unitOfWork { get; set; }
-        protected IMapper _mapper { get; set; }
     }
 }
